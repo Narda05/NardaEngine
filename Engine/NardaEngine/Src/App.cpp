@@ -5,8 +5,9 @@
 
 using namespace NardaEngine;
 using namespace NardaEngine::Core;
+using namespace NardaEngine::Graphics;
 
-void ::App::Run(const AppConfig& config)
+void App::Run(const AppConfig& config)
 {
 	LOG("App Started");
 	//intializa everything
@@ -17,6 +18,8 @@ void ::App::Run(const AppConfig& config)
 		config.winWidth,
 		config.winHeight
 	);
+	auto handler = myWindow.GetWindowHandle();
+	GraphicsSystem::StaticInitialize(handler, false);
 
 	//last steo before running
 	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
@@ -47,6 +50,11 @@ void ::App::Run(const AppConfig& config)
 		{
 			mCurrentState->Update(deltaTime);
 		}
+
+		GraphicsSystem* gs = GraphicsSystem::Get();
+		gs->BeginRender();
+		mCurrentState->Render();
+		gs->EndRender();
 	}
 
 
@@ -54,6 +62,7 @@ void ::App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 
+	GraphicsSystem::StaticTerminate();
 	myWindow.Terminate();
 }
 
