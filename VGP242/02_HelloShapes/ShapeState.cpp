@@ -8,8 +8,8 @@ using namespace NardaEngine::Math;
 void ShapeState::Initialize()
 {
 	mVertices.push_back({ { -0.5f, -0.0f, 0.0f } });
-	mVertices.push_back({ { -0.5f, -0.75f, 0.0f } });
-	mVertices.push_back({ { -0.5f, -0.0f, 0.0f } });
+	mVertices.push_back({ { 0.0f, 0.75f, 0.0f } });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f } });
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
@@ -30,7 +30,7 @@ void ShapeState::Initialize()
 	//=================================================================================
 
 	//Bind to function in sprecified shader file 
-	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoSomething.fx";
+	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoSomthing.fx";
 
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 	ID3DBlob* shaderBlob = nullptr;
