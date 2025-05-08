@@ -5,11 +5,10 @@
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
 	NardaEngine::AppConfig config;
-	config.appName = L"Hello Shapes";
+	config.appName = L"Hello Cube";
 
 	NardaEngine::App& myApp = NardaEngine::MainApp();
 	myApp.AddAppState<ShapeState>("ShapeState");
-	myApp.AddAppState<TriangleShapeState>("TriangleShapeState");
 	myApp.Run(config);
 
 	return 0;

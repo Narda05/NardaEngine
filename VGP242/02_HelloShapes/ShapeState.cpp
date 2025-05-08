@@ -7,9 +7,9 @@ using namespace NardaEngine::Math;
 
 void ShapeState::Initialize()
 {
-	mVertices.push_back({ { -0.5f, -0.0f, 0.0f } });
-	mVertices.push_back({ { 0.0f, 0.75f, 0.0f } });
-	mVertices.push_back({ { 0.5f, 0.0f, 0.0f } });
+	// creates a shape out of the vertices
+	CreateShape();
+
 
 	auto device = GraphicsSystem::Get()->GetDevice();
 
@@ -30,7 +30,7 @@ void ShapeState::Initialize()
 	//=================================================================================
 
 	//Bind to function in sprecified shader file 
-	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoSomthing.fx";
+	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoColor.fx";
 
 	DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 	ID3DBlob* shaderBlob = nullptr;
@@ -60,6 +60,7 @@ void ShapeState::Initialize()
 	//STATE WHAT THE VERTERX VARIABLES ARE
 	std::vector<D3D11_INPUT_ELEMENT_DESC> vertexLayout;
 	vertexLayout.push_back({ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT });
+	vertexLayout.push_back({ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT });
 
 	hr = device->CreateInputLayout(
 		vertexLayout.data(),
@@ -109,6 +110,11 @@ void ShapeState::Terminate()
 
 void ShapeState::Update(float deltaTime)
 {
+
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
 }
 
 void ShapeState::Render()
@@ -126,6 +132,82 @@ void ShapeState::Render()
 	UINT offset = 0;
 	context->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
 	context->Draw(static_cast<UINT>(mVertices.size()), 0);
+}
 
+void ShapeState::CreateShape()
+{
+	// create a triangle
+	mVertices.push_back({ { -0.5f, -0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.75f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Green });
+
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.0f, -0.75f, 0.0f }, Colors::Green });
+}
+
+void TriangleShapeState::Update(float deltaTime)
+{
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("ShapeState");
+	}
+}
+
+void TriangleShapeState::CreateShape()
+{
+	// Example teacheer
+	mVertices.push_back({ { -0.75f, -0.75f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { -0.25f, -0.75f, 0.0f }, Colors::Green });
+
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.75f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Green });
+
+	mVertices.push_back({ { 0.25f, -0.75f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.75f, -0.75f, 0.0f }, Colors::Green });
+
+	//Heart
+	/*mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.25f, 0.5f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { 0.0f, 0.0f, 0.0f }, Colors::Red });
+
+	mVertices.push_back({ { 0.0f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.25f, 0.5f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Blue });
+
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Green });
+	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Green });
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f }, Colors::Green });*/
+
+	//Fish
+	/*mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.8f, 0.6f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.1f, 0.0f, 0.0f }, Colors::Red });
+
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { -0.8f, -0.6f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { -0.1f, 0.0f, 0.0f }, Colors::Blue });
+
+	mVertices.push_back({ { -0.1f, -0.5f, 0.0f }, Colors::Green });
+	mVertices.push_back({ { -0.1f, 0.5f, 0.0f }, Colors::Green });
+	mVertices.push_back({ { 0.9f, 0.0f, 0.0f }, Colors::Green });*/
+
+	//Star
+	/*mVertices.push_back({ { -0.6f, -0.6f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.0f, 0.6f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.6f, -0.6f, 0.0f }, Colors::Blue });
+
+	mVertices.push_back({ { -0.6f, 0.3f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.0f, 0.3f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.0f, -0.8f, 0.0f }, Colors::Blue });
+
+	mVertices.push_back({ { 0.0f, 0.3f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.6f, 0.3f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { 0.0f, -0.8f, 0.0f }, Colors::Blue });*/
 
 }
+
+

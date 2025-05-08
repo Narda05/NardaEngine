@@ -3,9 +3,11 @@
 #include "App.h"
 #include "AppState.h"
 
+
 using namespace NardaEngine;
 using namespace NardaEngine::Core;
 using namespace NardaEngine::Graphics;
+using namespace NardaEngine::Input;
 
 void App::Run(const AppConfig& config)
 {
@@ -20,17 +22,21 @@ void App::Run(const AppConfig& config)
 	);
 	auto handler = myWindow.GetWindowHandle();
 	GraphicsSystem::StaticInitialize(handler, false);
+	InputSystem::StaticInitialize(handler);
 
 	//last steo before running
 	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
 	mCurrentState->Initialize();
 
 	//process updates
+
+	InputSystem* input = InputSystem::Get();
 	mRunning = true;
 	while (mRunning)
 	{
 		myWindow.ProcessMessages();
-		if (!myWindow.IsActive())
+		input->Update();
+		if (!myWindow.IsActive() || input->IsKeyPressed(KeyCode::ESCAPE))
 		{
 			Quit();
 			continue; 
@@ -62,6 +68,7 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 
+	InputSystem::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	myWindow.Terminate();
 }

@@ -11,10 +11,13 @@ public:
 	void Render() override;
 
 	//Create a shape: 1.create the definition of the vertex
-private: 
+protected:
+	virtual void CreateShape();
+
 	struct Vertex
 	{
 		NardaEngine::Math::Vector3 position;
+		NardaEngine::Graphics::Color color;
 	};
 	using Vertices = std::vector<Vertex>;
 	Vertices mVertices;
@@ -23,4 +26,12 @@ private:
 	ID3D11VertexShader* mVertexShader = nullptr;
 	ID3D11InputLayout* mInputLayout = nullptr;
 	ID3D11PixelShader* mPixelShader = nullptr;
+};
+
+class TriangleShapeState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
 };
