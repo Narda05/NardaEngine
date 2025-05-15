@@ -35,3 +35,27 @@ public:
 protected:
 	void CreateShape() override;
 };
+
+class HeartShapeState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
+
+class FishShapeState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};
+
+class StarShapeState : public ShapeState
+{
+public:
+	void Update(float deltaTime) override;
+protected:
+	void CreateShape() override;
+};

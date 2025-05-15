@@ -111,9 +111,21 @@ void ShapeState::Terminate()
 void ShapeState::Update(float deltaTime)
 {
 
-	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
 	{
 		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("HeartShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("FishShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("StarShapeState");
 	}
 }
 
@@ -150,7 +162,79 @@ void TriangleShapeState::Update(float deltaTime)
 {
 	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
 	{
-		NardaEngine::MainApp().ChangeState("ShapeState");
+		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("HeartShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("FishShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("StarShapeState");
+	}
+}
+
+void HeartShapeState::Update(float deltatime)
+{
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("HeartShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("FishShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("StarShapeState");
+	}
+}
+
+void FishShapeState::Update(float deltatime)
+{
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("HeartShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("FishShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("StarShapeState");
+	}
+}
+
+void StarShapeState::Update(float deltatime)
+{
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("TriangleShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("HeartShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("FishShapeState");
+	}
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("StarShapeState");
 	}
 }
 
@@ -169,8 +253,12 @@ void TriangleShapeState::CreateShape()
 	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Blue });
 	mVertices.push_back({ { 0.75f, -0.75f, 0.0f }, Colors::Green });
 
+}
+
+void HeartShapeState::CreateShape()
+{
 	//Heart
-	/*mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
 	mVertices.push_back({ { -0.25f, 0.5f, 0.0f }, Colors::Red });
 	mVertices.push_back({ { 0.0f, 0.0f, 0.0f }, Colors::Red });
 
@@ -180,23 +268,30 @@ void TriangleShapeState::CreateShape()
 
 	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Green });
 	mVertices.push_back({ { 0.5f, 0.0f, 0.0f }, Colors::Green });
-	mVertices.push_back({ { 0.0f, -0.5f, 0.0f }, Colors::Green });*/
+	mVertices.push_back({ { 0.0f, -0.5f, 0.0f }, Colors::Green });
 
+}
+void FishShapeState::CreateShape()
+{
 	//Fish
-	/*mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
+	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Red });
 	mVertices.push_back({ { -0.8f, 0.6f, 0.0f }, Colors::Red });
 	mVertices.push_back({ { -0.1f, 0.0f, 0.0f }, Colors::Red });
 
 	mVertices.push_back({ { -0.5f, 0.0f, 0.0f }, Colors::Blue });
-	mVertices.push_back({ { -0.8f, -0.6f, 0.0f }, Colors::Blue });
 	mVertices.push_back({ { -0.1f, 0.0f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { -0.8f, -0.6f, 0.0f }, Colors::Blue });
 
 	mVertices.push_back({ { -0.1f, -0.5f, 0.0f }, Colors::Green });
 	mVertices.push_back({ { -0.1f, 0.5f, 0.0f }, Colors::Green });
-	mVertices.push_back({ { 0.9f, 0.0f, 0.0f }, Colors::Green });*/
+	mVertices.push_back({ { 0.9f, 0.0f, 0.0f }, Colors::Green });
 
+
+}
+void StarShapeState::CreateShape()
+{
 	//Star
-	/*mVertices.push_back({ { -0.6f, -0.6f, 0.0f }, Colors::Blue });
+	mVertices.push_back({ { -0.6f, -0.6f, 0.0f }, Colors::Blue });
 	mVertices.push_back({ { 0.0f, 0.6f, 0.0f }, Colors::Blue });
 	mVertices.push_back({ { 0.6f, -0.6f, 0.0f }, Colors::Blue });
 
@@ -206,8 +301,8 @@ void TriangleShapeState::CreateShape()
 
 	mVertices.push_back({ { 0.0f, 0.3f, 0.0f }, Colors::Blue });
 	mVertices.push_back({ { 0.6f, 0.3f, 0.0f }, Colors::Blue });
-	mVertices.push_back({ { 0.0f, -0.8f, 0.0f }, Colors::Blue });*/
-
+	mVertices.push_back({ { 0.0f, -0.8f, 0.0f }, Colors::Blue });
+	
 }
 
 
