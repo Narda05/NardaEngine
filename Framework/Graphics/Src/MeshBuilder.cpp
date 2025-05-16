@@ -113,28 +113,22 @@ MeshPC NardaEngine::Graphics::MeshBuilder::CreatePyramidPC(float size)
 	const float hs = size * 0.5f;
 
 	//add all the vertices for a pyramid 
+
+	mesh.vertices.push_back({ {0.0f, hs, 0.0f, }, GetNextColor(index) });
 	mesh.vertices.push_back({ { -hs, -hs, -hs, }, GetNextColor(index) });
-	mesh.vertices.push_back({ { -hs,  hs, -hs, }, GetNextColor(index) });
-	mesh.vertices.push_back({ {  hs,  hs, -hs, }, GetNextColor(index) });
+	mesh.vertices.push_back({ { -hs, -hs,  hs, }, GetNextColor(index) });
+	mesh.vertices.push_back({ {  hs, -hs,  hs, }, GetNextColor(index) });
 	mesh.vertices.push_back({ {  hs, -hs, -hs, }, GetNextColor(index) });
 	
 	// add all the indices 
 	mesh.indices = {
-		//front
+		//top
 		0, 1, 2,
 		0, 2, 3,
-		//back
-		4, 5, 6,
-		4, 6, 7,
-		//right
-		3, 2, 6,
-		3, 6, 7,
-		//left
-		4, 5, 1,
-		4, 1, 0,
-		//top
-		1, 5, 6,
-		1, 6, 2,
+		0, 3, 4,
+		0, 4, 1,
+		1, 3, 2,
+		1, 4, 3,
 	};
 
 	
