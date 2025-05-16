@@ -9,6 +9,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 
 	NardaEngine::App& myApp = NardaEngine::MainApp();
 	myApp.AddAppState<ShapeState>("ShapeState");
+    myApp.AddAppState<CubeShapeState>("cubeShapeState");
+	myApp.AddAppState<PyramidShapeState>("pyramidShapeState");
+	myApp.AddAppState<RectangleShapeState>("rectangleShapeState");
 	myApp.Run(config);
 
 	return 0;

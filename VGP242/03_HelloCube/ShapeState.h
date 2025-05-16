@@ -14,11 +14,7 @@ public:
 protected:
 	virtual void CreateShape();
 	
-	using Vertices = std::vector<NardaEngine::Graphics::VertexPC>;
-	Vertices mVertices; 
-	using Indices = std::vector<uint32_t>;
-	Indices mIndices;
-
+	NardaEngine::Graphics::MeshPC mMesh;
 	NardaEngine::Graphics::Camera mCamera;
 	NardaEngine::Graphics::ConstantBuffer mTransformBuffer;
 	NardaEngine::Graphics::MeshBuffer mMeshBuffer;
@@ -27,3 +23,21 @@ protected:
 	
 };
 
+class CubeShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+
+
+class PyramidShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+
+class RectangleShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};

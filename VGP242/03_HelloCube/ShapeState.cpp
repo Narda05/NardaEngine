@@ -15,7 +15,7 @@ void ShapeState::Initialize()
 
 	// creates a shape out of the vertices
 	CreateShape();
-	mMeshBuffer.Initialize(mVertices.data(), sizeof(VertexPC), mVertices.size(), mIndices.data(), mIndices.size());
+	mMeshBuffer.Initialize(mMesh);
 	
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTransformColor.fx";
 	mVertexShader.Initialize<VertexPC>(shaderFilePath);
@@ -24,7 +24,6 @@ void ShapeState::Initialize()
 
 void ShapeState::Terminate()
 {
-	
 	mTransformBuffer.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
@@ -68,6 +67,19 @@ void ShapeState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
+
+	if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("rectangleShapeState");
+	}
+	else if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("cubeShapeState");
+	}
+	else if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("pyramidShapeState");
+	}
 }
 
 void ShapeState::Render()
@@ -92,41 +104,21 @@ void ShapeState::Render()
 	mMeshBuffer.Render();
 }
 
+void CubeShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreateCubePC(1.0f);
+}
+void PyramidShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreatePyramidPC(1.0f);
+}
+void RectangleShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreateRectanglePC(1.0f, 2.0f, 4.0f);
+}
 void ShapeState::CreateShape()
 {
-	const float hs = 0.5f;
-	//front 
-	mVertices.push_back({ { -hs, -hs, -hs, }, Colors::Red });
-	mVertices.push_back({ { -hs,  hs, -hs, }, Colors::Blue });
-	mVertices.push_back({ {  hs,  hs, -hs, }, Colors::Green });
-	mVertices.push_back({ {  hs, -hs, -hs, }, Colors::LightSkyBlue });
-	//back
-	mVertices.push_back({ { -hs, -hs,  hs, }, Colors::Red });
-	mVertices.push_back({ { -hs,  hs,  hs, }, Colors::Blue });
-	mVertices.push_back({ {  hs,  hs,  hs, }, Colors::Green });
-	mVertices.push_back({ {  hs, -hs,  hs, }, Colors::LightSkyBlue });
-
-	mIndices = {
-		//front
-		0, 1, 2,
-		0, 2, 3,
-		//back
-		7, 5, 4,
-		7, 6, 5,
-		//right
-		3, 2, 6,
-		3, 6, 7,
-		//left
-		4, 5, 1,
-		4, 1, 0,
-		//top
-		1, 5, 6,
-		1, 6, 2,
-		//bottom
-		0, 3, 7,
-		0, 7, 4
-	};
-
-
-
+	mMesh = MeshBuilder::CreateCubePC(1.0f);
+	mMesh = MeshBuilder::CreatePyramidPC(1.0f);
+	mMesh = MeshBuilder::CreateRectanglePC(1.0f, 2.0f, 4.0f);
 }
