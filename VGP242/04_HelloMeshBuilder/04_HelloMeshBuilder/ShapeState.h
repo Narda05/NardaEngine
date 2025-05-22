@@ -27,3 +27,27 @@ protected:
 	
 };
 
+class SphereShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+
+class SkySphereShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+
+class PlaneShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+
+class PlaneVerticalShapeState : public ShapeState
+{
+protected:
+	void CreateShape() override;
+};
+

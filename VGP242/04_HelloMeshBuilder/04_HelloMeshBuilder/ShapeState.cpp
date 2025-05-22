@@ -21,7 +21,7 @@ void ShapeState::Initialize()
 	mVertexShader.Initialize<VertexPX>(shaderFilePath);
 	mPixelShader.Initialize(shaderFilePath);
 
-	mTexture.Initialize(L"../../Assets/Textures/skysphere/sky.jpg");
+	mTexture.Initialize(L"../../Assets/Textures/earth.jpg");
 	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
 }
 
@@ -72,7 +72,22 @@ void ShapeState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
-
+	/*if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::DOWN))
+	{
+		NardaEngine::MainApp().ChangeState("createspherepx");
+	}
+	else if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::UP))
+	{
+		NardaEngine::MainApp().ChangeState("createskyspherepx");
+	}
+	else if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::RIGHT))
+	{
+		NardaEngine::MainApp().ChangeState("createplanepx");
+	}
+	else if (Input::InputSystem::Get()->IsKeyPressed(Input::KeyCode::LEFT))
+	{
+		NardaEngine::MainApp().ChangeState("createplaneverticalpx");
+	}*/
 }
 
 void ShapeState::Render()
@@ -100,6 +115,24 @@ void ShapeState::Render()
 	mMeshBuffer.Render();
 }
 
+void SphereShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreateSpherePX(30, 30, 1.0f);
+}
+void SkySphereShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreateSkySpherePX(30, 30, 200.0f);
+}
+void PlaneShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreatePlanePX(30, 30, 1.0f);
+}
+void PlaneVerticalShapeState::CreateShape()
+{
+	mMesh = MeshBuilder::CreatePlaneVerticalPX(30, 30, 1.0f);
+}
+
+
 
 void ShapeState::CreateShape()
 {
@@ -110,6 +143,7 @@ void ShapeState::CreateShape()
 	//mMesh = MeshBuilder::CreateCylinderPC(20, 3);
 	//mMesh = MeshBuilder::CreateSpherePC(30, 30, 1.0f);
 	//mMesh = MeshBuilder::CreateSpherePX(30, 30, 1.0f);
-	mMesh = MeshBuilder::CreateSkySpherePX(30, 30, 200.0f);
+	/*mMesh = MeshBuilder::CreateSkySpherePX(30, 30, 200.0f);*/
 	//mMesh = MeshBuilder::CreatePlanePX(30, 30, 1.0f);
+	mMesh = MeshBuilder::CreatePlaneVerticalPX(30, 30, 1.0f);
 }
