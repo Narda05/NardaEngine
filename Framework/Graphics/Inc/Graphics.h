@@ -13,7 +13,8 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "VertexTypes.h"
-
+#include "Texture.h"
+#include "Sampler.h"
 
 
 

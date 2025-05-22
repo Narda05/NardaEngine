@@ -20,6 +20,7 @@ protected:
 	NardaEngine::Graphics::MeshBuffer mMeshBuffer;
 	NardaEngine::Graphics::VertexShader mVertexShader;
 	NardaEngine::Graphics::PixelShader mPixelShader;
+
 	
 };
 

@@ -31,12 +31,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{58F8
 	ProjectSection(SolutionItems) = preProject
 		Assets\Shaders\DoColor.fx = Assets\Shaders\DoColor.fx
 		Assets\Shaders\DoSomthing.fx = Assets\Shaders\DoSomthing.fx
+		Assets\Shaders\DoTexture.fx = Assets\Shaders\DoTexture.fx
 		Assets\Shaders\DoTransformColor.fx = Assets\Shaders\DoTransformColor.fx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Input", "Framework\Input\Input.vcxproj", "{3629F01A-6FED-42EB-B308-E9F7F1346EAF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_HelloCube", "VGP242\03_HelloCube\03_HelloCube.vcxproj", "{922BBD6D-302F-467A-83B9-B9EF52191090}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_HelloMeshBuilder", "VGP242\04_HelloMeshBuilder\04_HelloMeshBuilder\04_HelloMeshBuilder.vcxproj", "{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,6 +121,14 @@ Global
 		{922BBD6D-302F-467A-83B9-B9EF52191090}.Release|x64.Build.0 = Release|x64
 		{922BBD6D-302F-467A-83B9-B9EF52191090}.Release|x86.ActiveCfg = Release|Win32
 		{922BBD6D-302F-467A-83B9-B9EF52191090}.Release|x86.Build.0 = Release|Win32
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Debug|x64.ActiveCfg = Debug|x64
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Debug|x64.Build.0 = Debug|x64
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Debug|x86.ActiveCfg = Debug|Win32
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Debug|x86.Build.0 = Debug|Win32
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Release|x64.ActiveCfg = Release|x64
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Release|x64.Build.0 = Release|x64
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Release|x86.ActiveCfg = Release|Win32
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,5 +144,6 @@ Global
 		{58F850C8-7606-4F1F-AEA4-CD5137E5256A} = {0A3D5703-E6AE-4D00-B16D-F8EFC533FDEC}
 		{3629F01A-6FED-42EB-B308-E9F7F1346EAF} = {861CF375-25A5-4A29-8FAD-2C79FB11BB80}
 		{922BBD6D-302F-467A-83B9-B9EF52191090} = {645D5774-086E-4439-BD7A-A196EC4C1CA8}
+		{9A6222BB-D9D7-4E31-B9C7-E88760DF949F} = {645D5774-086E-4439-BD7A-A196EC4C1CA8}
 	EndGlobalSection
 EndGlobal

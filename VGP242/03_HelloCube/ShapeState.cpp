@@ -8,7 +8,7 @@ using namespace NardaEngine::Input;
 
 void ShapeState::Initialize()
 {
-	mCamera.SetPosition({ 0.0f, 0.0f, -3.0f });
+	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
 	mTransformBuffer.Initialize(sizeof(Math::Matrix4));
@@ -118,7 +118,10 @@ void RectangleShapeState::CreateShape()
 }
 void ShapeState::CreateShape()
 {
-	mMesh = MeshBuilder::CreateCubePC(1.0f);
-	mMesh = MeshBuilder::CreatePyramidPC(1.0f);
-	mMesh = MeshBuilder::CreateRectanglePC(1.0f, 2.0f, 4.0f);
+	//mMesh = MeshBuilder::CreateCubePC(1.0f);
+	//mMesh = MeshBuilder::CreatePyramidPC(1.0f);
+	//mMesh = MeshBuilder::CreateRectanglePC(1.0f, 2.0f, 4.0f);
+	//mMesh = MeshBuilder::CreatePlanePC(10, 10, 1.0f); //horizontal like piso, if you use false it will be vertical like pared. 
+	//mMesh = MeshBuilder::CreateCylinderPC(10, 10);
+	mMesh = MeshBuilder::CreateSpherePC(30, 30, 1.0f);
 }
