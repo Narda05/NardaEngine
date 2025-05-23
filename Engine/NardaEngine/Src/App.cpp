@@ -23,6 +23,7 @@ void App::Run(const AppConfig& config)
 	auto handler = myWindow.GetWindowHandle();
 	GraphicsSystem::StaticInitialize(handler, false);
 	InputSystem::StaticInitialize(handler);
+	DebugUI::StaticInitialize(handler, false, true);
 
 	//last steo before running
 	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
@@ -59,7 +60,10 @@ void App::Run(const AppConfig& config)
 
 		GraphicsSystem* gs = GraphicsSystem::Get();
 		gs->BeginRender();
-		mCurrentState->Render();
+			mCurrentState->Render();
+			DebugUI::BeginRender();
+				mCurrentState->DebugUI();
+			DebugUI::EndRender();
 		gs->EndRender();
 	}
 
@@ -68,6 +72,7 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 
+	DebugUI::StaticTerminate();
 	InputSystem::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	myWindow.Terminate();

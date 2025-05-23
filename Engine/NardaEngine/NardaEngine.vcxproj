@@ -150,8 +150,8 @@
     <ClCompile Include="Src\SpEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
-      <Project>{ac9ab161-28a5-4fce-9102-3b3e09a3ff55}</Project>
+    <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
+      <Project>{52d656a2-a2f4-4c54-a3c7-653427bed1e8}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Framework\Graphics\Graphics.vcxproj">
       <Project>{1227a47f-5b15-4a11-9936-a397c8e95a03}</Project>

@@ -16,10 +16,11 @@ void ShapeState::Initialize()
 	// creates a shape out of the vertices
 	CreateShape();
 	mMeshBuffer.Initialize(mMesh);
-	
+
 	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTexture.fx";
 	mVertexShader.Initialize<VertexPX>(shaderFilePath);
 	mPixelShader.Initialize(shaderFilePath);
+
 
 	mTexture.Initialize(L"../../Assets/Textures/earth.jpg");
 	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
