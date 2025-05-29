@@ -24,6 +24,7 @@ void App::Run(const AppConfig& config)
 	GraphicsSystem::StaticInitialize(handler, false);
 	InputSystem::StaticInitialize(handler);
 	DebugUI::StaticInitialize(handler, false, true);
+	SimpleDraw::StaticInitialize(config.maxVertexCount);
 
 	//last steo before running
 	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
@@ -48,6 +49,7 @@ void App::Run(const AppConfig& config)
 			mCurrentState->Terminate();
 			mCurrentState = std::exchange(mNextState, nullptr);
 			mCurrentState->Initialize();
+			
 		}
 
 		float deltaTime = TimeUtil::GetDeltaTime();
@@ -71,7 +73,8 @@ void App::Run(const AppConfig& config)
 	//Terminate everything
 	LOG("App Quit");
 	mCurrentState->Terminate();
-
+	
+	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	InputSystem::StaticTerminate();
 	GraphicsSystem::StaticTerminate();

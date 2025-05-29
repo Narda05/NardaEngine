@@ -52,28 +52,28 @@ namespace
 		}
 		return false;
 	}
-	LRESULT CALLBACK DebugUIMessageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	LRESULT CALLBACK DebugUIMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		//does imui want to cpature the mouse and is it a mouse message
 		if (io.WantCaptureMouse && IsMouseInput(msg))
 		{
-			return ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam); // let imgui handle it
+			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam); // let imgui handle it
 		}
 
 		//does imgui want to capture key input and is it 
 		if (io.WantCaptureKeyboard && IsKeyboardMessage(msg))
 		{
-			return ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam); // let imgui handle it
+			return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam); // let imgui handle it
 		}
 
-		LRESULT result = ImGui_ImplWin32_WndProcHandler(hwnd, msg, wParam, lParam);
+		LRESULT result = ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 		if (result != 0)
 		{
 			return result; // let imgui handle it
 		}
 
-		return sWindowMessageHandler.ForwardMessage(hwnd, msg, wParam, lParam);
+		return sWindowMessageHandler.ForwardMessage(hWnd, msg, wParam, lParam);
 	}
 }
 
@@ -111,26 +111,26 @@ void DebugUI::SetTheme(Theme theme)
 {
 	switch (theme)
 	{
-		case Theme::Classic:
-		{
-			ImGui::StyleColorsClassic();
-				break;
-		}
-		case Theme::Dark:
-		{
-			ImGui::StyleColorsDark();
-			break;
-		}
-		case Theme::Light:
-		{
-			ImGui::StyleColorsLight();
-			break;
-		}
-		default:
-		{
-			ASSERT(false, "DebugUI: invalide theme");
-			break;
-		}
+	case Theme::Classic:
+	{
+		ImGui::StyleColorsClassic();
+		break;
+	}
+	case Theme::Dark:
+	{
+		ImGui::StyleColorsDark();
+		break;
+	}
+	case Theme::Light:
+	{
+		ImGui::StyleColorsLight();
+		break;
+	}
+	default:
+	{
+		ASSERT(false, "DebugUI: invalide theme");
+		break;
+	}
 	}
 		
 }

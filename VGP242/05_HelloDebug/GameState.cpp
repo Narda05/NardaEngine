@@ -8,6 +8,8 @@ using namespace NardaEngine::Input;
 
 void GameState::Initialize() 
 {
+	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
+	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
 }
 void GameState::Terminate() 
@@ -24,17 +26,101 @@ void GameState::Render()
 }
 bool gCheValue = false;
 float gFloatVal = 0.0f;
-Math::Vector3 gVectorVal = Math::Vector3::Zero;
+Math::Vector3 gV0 = Math::Vector3::Zero;
+Math::Vector3 gV1 = Math::Vector3::One;
+Math::Vector3 gV2 = Math::Vector3::XAxis;
 Color gColor = Colors::White;
+
+////Combobox
+enum class Shape
+{
+	None,
+	AABB,
+	AABBFilled,
+	Sphere,
+	GroundPlane,
+	GroundCircle,
+	Transform,
+};
+const char* gShapeNames[] =
+{
+	"None",
+	"AABB",
+	"AABBFilled",
+	"Sphere",
+	"GroundPlane",
+	"GroundCircle",
+	"Transform",
+};
+
+Shape gCurrentShape = Shape::None;
 void GameState::DebugUI() 
 {
 	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Hello Yall");
 	ImGui::Checkbox("IsChecked", &gCheValue);
-	ImGui::DragFloat("Float", &gFloatVal);
-	ImGui::DragFloat3("Vector", &gVectorVal.x);
-	ImGui::ColorEdit3("Color", &gColor.r);
+	ImGui::DragFloat("FloatVal", &gFloatVal);
+	ImGui::DragFloat3("V0", &gV0.x, 0.1f);
+	ImGui::DragFloat3("V1", &gV1.x, 0.1f);
+	ImGui::DragFloat3("V2", &gV2.x, 0.1f);
+	ImGui::ColorEdit4("Color", &gColor.r);
+
+	int currentShape = (int)gCurrentShape;
+	if (ImGui::Combo("Shape", &currentShape, gShapeNames, std::size(gShapeNames)))
+	{
+		gCurrentShape = (Shape)currentShape;
+	}
+
+	switch (gCurrentShape)
+	{
+	case Shape::None: break;
+	case Shape::AABB: 
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddAABB(gV0, gV1, gColor);
+		break;
+	}
+	case Shape::AABBFilled: 
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddFilledAABB(gV0, gV1, gColor);
+		break;
+	}
+	case Shape::Sphere:
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0);
+		break;
+	}
+	case Shape::GroundPlane: 
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddGroundPlane(gFloatVal, gColor);
+		break;
+	}
+	case Shape::GroundCircle:
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0);
+		break;
+	}
+	case Shape::Transform: 
+	{
+		SimpleDraw::AddTransform(Math::Matrix4::Identity);
+		break;
+	}
+	}
 	ImGui::End();
+	//SimpleDraw::AddFace( gV0, gV1, gV2, Colors::AliceBlue);
+	////SimpleDraw::AddGroundPlane(10.0f, Colors::Red);//grid
+	//SimpleDraw::AddTransform(Math::Matrix4::Identity);// the 3 linea blue, red and yellow
+	SimpleDraw::Render(mCamera);
+
 }
 void GameState::UpdateCamera(float deltaTime) 
 {

@@ -7,7 +7,6 @@
 
 #include "Camera.h"
 #include "ConstantBuffer.h"
-#include "ConstantBuffer.h"
 #include "DebugUI.h"
 #include "MeshBuffer.h"
 #include "MeshBuilder.h"
@@ -17,6 +16,7 @@
 #include "VertexTypes.h"
 #include "Texture.h"
 #include "Sampler.h"
+#include "SimpleDraw.h"
 
 
 

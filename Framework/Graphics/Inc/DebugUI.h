@@ -9,7 +9,7 @@ namespace NardaEngine::Graphics::DebugUI
 		Light
 	};
 
-	void StaticInitialize(HWND window, bool dockying, bool multiViewport);
+	void StaticInitialize(HWND window, bool dockying = false, bool multiViewport = false);
 	void StaticTerminate();
 	void SetTheme(Theme theme);
 
