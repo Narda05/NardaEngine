@@ -93,21 +93,23 @@ void GameState::DebugUI()
 		{
 			ImGui::DragFloat3("Min", &gV0.x, 0.1f);
 			ImGui::DragFloat3("Max", &gV1.x, 0.1f);
-			SimpleDraw::AddAABB(gV0, gV1, gColor);
+			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
+			SimpleDraw::AddAABB(gV0 + gV2, gV1 + gV2, gColor);
 			break;
 		}
 		case Shape::AABBFilled: 
 		{
 			ImGui::DragFloat3("Min", &gV0.x, 0.1f);
 			ImGui::DragFloat3("Max", &gV1.x, 0.1f);
-			SimpleDraw::AddFilledAABB(gV0, gV1, gColor);
+			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
+			SimpleDraw::AddFilledAABB(gV0 + gV2, gV1 + gV2, gColor);
 			break;
 		}
 		case Shape::Sphere:
 		{
-			/*ImGui::DragFloat("Min");
-			ImGui::DragFloat("Max");*/
-			SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0);
+			ImGui::DragFloat3("Center", &gV0.x, 0.1f);
+			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
+			SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0 + gV2);
 			break;
 		}
 		case Shape::GroundPlane: 
@@ -119,9 +121,9 @@ void GameState::DebugUI()
 		}
 		case Shape::GroundCircle:
 		{
-			/*ImGui::DragFloat("Min");
-			ImGui::DragFloat("Max");*/
-			SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0);
+			ImGui::DragFloat3("Center", &gV0.x, 0.1f);
+			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
+			SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0 + gV2);
 			break;
 		}
 		case Shape::Transform: 
