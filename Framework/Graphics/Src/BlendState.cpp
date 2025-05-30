@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "BlendState.h"
+
 #include "GraphicsSystem.h"
 
 using namespace NardaEngine;
@@ -21,7 +22,6 @@ namespace
 		}
 		return D3D11_BLEND_ONE; // Default fallback
 	}
-
 	D3D11_BLEND GetDestBlend(BlendState::Mode mode)
 	{
 		switch (mode)

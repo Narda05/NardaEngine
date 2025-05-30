@@ -25,6 +25,7 @@ void App::Run(const AppConfig& config)
 	InputSystem::StaticInitialize(handler);
 	DebugUI::StaticInitialize(handler, false, true);
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
+	TextureManager::StaticInitialize(L"../../Assets/Textures");
 
 	//last steo before running
 	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
@@ -73,7 +74,8 @@ void App::Run(const AppConfig& config)
 	//Terminate everything
 	LOG("App Quit");
 	mCurrentState->Terminate();
-	
+
+	TextureManager::StaticTerminate();
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
 	InputSystem::StaticTerminate();
