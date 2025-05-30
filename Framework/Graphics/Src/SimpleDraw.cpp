@@ -7,6 +7,7 @@
 #include "PixelShader.h"
 #include "VertexShader.h"
 #include "VertexTypes.h"
+#include "BlendState.h"
 
 using namespace NardaEngine;
 using namespace NardaEngine::Graphics;
@@ -28,6 +29,7 @@ namespace
 		PixelShader mPixelShader;
 		ConstantBuffer mConstantBuffer;
 		MeshBuffer mMeshBuffer;
+		BlendState mBlendState;
 
 		std::unique_ptr<VertexPC[]> mLineVertices;
 		std::unique_ptr<VertexPC[]> mFaceVertices;
@@ -44,6 +46,7 @@ namespace
 		mPixelShader.Initialize(shaderPath);
 		mConstantBuffer.Initialize(sizeof(Matrix4));
 		mMeshBuffer.Initialize(nullptr, sizeof(VertexPC), maxVertexCount);
+		mBlendState.Initialize(BlendState::Mode::AlphaBlend);
 
 		mLineVertices = std::make_unique<VertexPC[]>(maxVertexCount);
 		mFaceVertices = std::make_unique<VertexPC[]>(maxVertexCount);
@@ -53,6 +56,7 @@ namespace
 	}
 	void SimpleDrawImpl::Terminate()
 	{
+		mBlendState.Terminate();
 		mMeshBuffer.Terminate();
 		mConstantBuffer.Terminate();
 		mPixelShader.Terminate();
@@ -88,6 +92,7 @@ namespace
 
 		mVertexShader.Bind();
 		mPixelShader.Bind();
+		mBlendState.Set();
 
 		mMeshBuffer.SetTopology(MeshBuffer::Topology::Triangles);
 		mMeshBuffer.Update(mFaceVertices.get(), mFaceVertexCount);
@@ -96,6 +101,8 @@ namespace
 		mMeshBuffer.SetTopology(MeshBuffer::Topology::Lines);
 		mMeshBuffer.Update(mLineVertices.get(), mLineVertexCount);
 		mMeshBuffer.Render();
+
+		BlendState::ClearState();
 
 		mLineVertexCount = 0;
 		mFaceVertexCount = 0;
@@ -258,7 +265,7 @@ void SimpleDraw::AddSphere(uint32_t slices, uint32_t rings, float radius, const 
 
 void SimpleDraw::AddGroundPlane(float size, const Color& color)
 {
-	const float hs = size * 0.5f;
+	const float hs = std::max(size, 0.0f) * 0.5f;
 	const uint32_t iSize = static_cast<uint32_t>(size);
 	for (uint32_t i = 0; i <= iSize; ++i)
 	{

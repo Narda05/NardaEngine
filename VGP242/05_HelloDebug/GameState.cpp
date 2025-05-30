@@ -62,7 +62,7 @@ void GameState::DebugUI()
 	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Hello Yall");
 	ImGui::Checkbox("IsChecked", &gCheValue);
-	ImGui::DragFloat("FloatVal", &gFloatVal);
+	ImGui::DragFloat("FloatVal", &gFloatVal, 1.0f, 0.0f, 10000.0);
 	ImGui::DragFloat3("V0", &gV0.x, 0.1f);
 	ImGui::DragFloat3("V1", &gV1.x, 0.1f);
 	ImGui::DragFloat3("V2", &gV2.x, 0.1f);
