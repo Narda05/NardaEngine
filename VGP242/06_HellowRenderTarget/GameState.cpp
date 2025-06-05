@@ -1,5 +1,5 @@
 #include "GameState.h"
-
+#include "math.h"
 using namespace NardaEngine; 
 using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
@@ -110,7 +110,13 @@ const char* gShapeNames[] =
 	"Transform",
 };
 
+inline Math::Vector3 GetTranslation(const Math::Matrix4& m)
+{
+	return { m._41, m._42, m._43 };
+}
 
+static int selectedTarget = 0;
+const char* targetNames[] = { "Sun", "Earth" };
 Shape gCurrentShape = Shape::None;
 void GameState::DebugUI() 
 {
@@ -136,22 +142,21 @@ void GameState::DebugUI()
 	case Shape::None: break;
 	case Shape::AABB:
 	{
-		//ImGui::DragFloat("Min");
-		//ImGui::DragFloat("Max");
+		ImGui::DragFloat3("Min", &gV0.x, 0.1f);
+		ImGui::DragFloat3("Max", &gV1.x, 0.1f);
 		SimpleDraw::AddAABB(gV0, gV1, gColor);
 		break;
 	}
 	case Shape::AABBFilled:
 	{
-		//ImGui::DragFloat("Min");
-		//ImGui::DragFloat("Max");
+		ImGui::DragFloat3("Min", &gV0.x, 0.1f);
+		ImGui::DragFloat3("Max", &gV1.x, 0.1f);
 		SimpleDraw::AddFilledAABB(gV0, gV1, gColor);
 		break;
 	}
 	case Shape::Sphere:
 	{
-		//ImGui::DragFloat("Min");
-		//ImGui::DragFloat("Max");
+		ImGui::DragFloat3("Center", &gV0.x, 0.1f);
 		SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0);
 		break;
 	}
@@ -164,8 +169,7 @@ void GameState::DebugUI()
 	}
 	case Shape::GroundCircle:
 	{
-		//ImGui::DragFloat("Min");
-		//ImGui::DragFloat("Max");
+		ImGui::DragFloat3("Center", &gV0.x, 0.1f);
 		SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0);
 		break;
 	}
@@ -176,9 +180,22 @@ void GameState::DebugUI()
 	}
 	}
 
-	
+	//Render Target Camera
 	ImGui::Separator();
 	ImGui::Text("Render Target");
+
+	// Combo to select which object to look at
+	static int selectedTarget = 0;
+	const char* targetNames[] = { "Sun", "Earth" };
+	ImGui::Combo("Camera Target", &selectedTarget, targetNames, IM_ARRAYSIZE(targetNames));
+	
+    // GetTranslation function is used by explicitly specifying the namespace.  
+    Math::Vector3 targetPosition = (selectedTarget == 0)  
+       ? NardaEngine::Math::GetTranslation(mObject0.matWorld)  
+       : NardaEngine::Math::GetTranslation(mObject1.matWorld);  
+    mRenderTargetCamera.SetLookAt(targetPosition);
+	mRenderTargetCamera.SetLookAt(targetPosition);
+
 	ImGui::Image(
 		mRenderTarget.GetRawData(),
 		{ 128, 128 },
@@ -188,8 +205,8 @@ void GameState::DebugUI()
 		{ 1, 1, 1, 1 }); //black border color
 
 	ImGui::End();
-	SimpleDraw::AddGroundPlane(20.0f, Colors::White);//grid
-	SimpleDraw::Render(mCamera);
+	//SimpleDraw::AddGroundPlane(20.0f, Colors::White);//grid
+	//SimpleDraw::Render(mCamera);
 }
 
 void GameState::UpdateCamera(float deltaTime) 
