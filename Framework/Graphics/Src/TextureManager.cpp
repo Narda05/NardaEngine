@@ -44,7 +44,7 @@ void TextureManager::SetRootDirectory(const std::filesystem::path& root)
 TextureId TextureManager::LoadTexture(const std::filesystem::path& fileName, bool useRootDir)
 {
 	const size_t textureId = std::filesystem::hash_value(fileName);
-	auto [iter, success] = mInventory.insert({ textureId, Entry{} });
+	auto [iter, success] = mInventory.insert({ textureId, Entry() });
 	if (success)
 	{
 		iter->second.texture = std::make_unique<Texture>();
@@ -53,7 +53,7 @@ TextureId TextureManager::LoadTexture(const std::filesystem::path& fileName, boo
 	}
 	else
 	{
-		iter->second.refCount++;
+		++iter->second.refCount;
 	}
 	return textureId;
 }
@@ -90,8 +90,8 @@ void TextureManager::BindVS(TextureId id, uint32_t slot) const
 	{
 		iter->second.texture->BindVS(slot);
 	}
-	
 }
+
 void TextureManager::BindPS(TextureId id, uint32_t slot) const
 {
 	auto iter = mInventory.find(id);

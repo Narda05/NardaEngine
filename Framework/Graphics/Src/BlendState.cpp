@@ -27,8 +27,8 @@ namespace
 		switch (mode)
 		{
 		case BlendState::Mode::Additive:           return D3D11_BLEND_ONE;
-		case BlendState::Mode::AlphaBlend:         return D3D11_BLEND_SRC_ALPHA;
-		case BlendState::Mode::AlphaPremultiplied: return D3D11_BLEND_SRC_ALPHA;
+		case BlendState::Mode::AlphaBlend:         return D3D11_BLEND_INV_SRC_ALPHA;
+		case BlendState::Mode::AlphaPremultiplied: return D3D11_BLEND_INV_SRC_ALPHA;
 		case BlendState::Mode::Opaque:             return D3D11_BLEND_ZERO;
 		default:
 			ASSERT(false, "BlendState: blend mode not found");
@@ -43,6 +43,7 @@ void BlendState::ClearState()
 	auto context = GraphicsSystem::Get()->GetContext();
 	context->OMSetBlendState(nullptr, nullptr, UINT_MAX); // Clear blend state
 }
+
 BlendState::~BlendState()
 {
 	ASSERT(mBlendState == nullptr, "BlendState: must call terminate");

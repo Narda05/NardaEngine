@@ -1,8 +1,6 @@
-#pragma once
 #include "Precompiled.h"
 #include "App.h"
 #include "AppState.h"
-
 
 using namespace NardaEngine;
 using namespace NardaEngine::Core;
@@ -12,6 +10,7 @@ using namespace NardaEngine::Input;
 void App::Run(const AppConfig& config)
 {
 	LOG("App Started");
+
 	//intializa everything
 	Window myWindow; 
 	myWindow.Initialize(

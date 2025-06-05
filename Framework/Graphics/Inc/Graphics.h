@@ -19,6 +19,7 @@
 #include "SimpleDraw.h"
 #include "BlendState.h"
 #include "TextureManager.h"
+#include "RenderTarget.h"
 
 
 

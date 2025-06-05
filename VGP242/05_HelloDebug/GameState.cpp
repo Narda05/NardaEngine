@@ -138,7 +138,7 @@ void GameState::DebugUI()
 	}
 	ImGui::End();
 	//SimpleDraw::AddFace( gV0, gV1, gV2, Colors::AliceBlue);
-	////SimpleDraw::AddGroundPlane(10.0f, Colors::Red);//grid
+	SimpleDraw::AddGroundPlane(20.0f, Colors::White);//grid
 	//SimpleDraw::AddTransform(Math::Matrix4::Identity);// the 3 linea blue, red and yellow
 	SimpleDraw::Render(mCamera);
 

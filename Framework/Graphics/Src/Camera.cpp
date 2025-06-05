@@ -37,7 +37,7 @@ void Camera::SetFOV(float fov)
 	mFov = Math::Clamp(fov, kMinFov, kMaxFov);
 }
 
-void Camera::SetAspect(float ratio)
+void Camera::SetAspectRatio(float ratio)
 {
 	mAspectRatio = ratio;
 }

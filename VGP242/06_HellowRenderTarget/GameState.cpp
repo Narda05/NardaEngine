@@ -4,13 +4,15 @@ using namespace NardaEngine;
 using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
 
-
-
 void GameState::Initialize() 
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
-	
+
+	mRenderTargetCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
+	mRenderTargetCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
+	mRenderTargetCamera.SetAspectRatio(1.0f);
+
 	//Initialize gpu communication
 	std::filesystem::path shaderFile = L"../../Assets/Shaders/DoTexture.fx";
 	mVertexShader.Initialize<VertexPX>(shaderFile);
@@ -20,19 +22,27 @@ void GameState::Initialize()
 
 	// initialize rende object 
 	MeshPX sphere = MeshBuilder::CreateSpherePX(60, 60, 1.0f);
-	mObject.Initialize(sphere);
+	mObject0.meshBuffer.Initialize(sphere);
+	mObject1.meshBuffer.Initialize(sphere);
 
-	mTextureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
+	mObject0.textureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
+	mObject1.textureId = TextureManager::Get()->LoadTexture(L"earth.jpg");
+	mObject1.matWorld = Math::Matrix4::Translation({ 0.0f, 1.0f, 0.0f });
+
+	constexpr uint32_t size = 512;
+	mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
 }
 void GameState::Terminate() 
 {
-	TextureManager::Get()->RealeaseTexture(mTextureId);
-	mObject.Terminate();
+	mRenderTarget.Terminate();
+	TextureManager::Get()->RealeaseTexture(mObject0.textureId);
+	TextureManager::Get()->RealeaseTexture(mObject1.textureId);
+	mObject0.meshBuffer.Terminate();
+	mObject1.meshBuffer.Terminate();
 	mTransformBuffer.Terminate();
 	mSampler.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
-
 }
 void GameState::Update(float deltaTime) 
 {
@@ -40,9 +50,22 @@ void GameState::Update(float deltaTime)
 }
 void GameState::Render() 
 {
-	const Math::Matrix4 matView = mCamera.GetViewMatrix();
-	const Math::Matrix4 matProj = mCamera.GetProjectionMatrix();
-	const Math::Matrix4 matFinal = mWorldMat * matView * matProj;
+// render to the render target
+	mRenderTarget.BegingRender();
+	RenderObject(mObject0, mRenderTargetCamera);
+	RenderObject(mObject1, mRenderTargetCamera);
+	mRenderTarget.EndRender();
+
+	//render to the scene
+	RenderObject(mObject0, mCamera);
+	RenderObject(mObject1, mCamera);
+}
+
+void GameState::RenderObject(const Object& object, const Camera& camera)
+{
+	const Math::Matrix4 matView = camera.GetViewMatrix();
+	const Math::Matrix4 matProj = camera.GetProjectionMatrix();
+	const Math::Matrix4 matFinal = object.matWorld * matView * matProj;
 	const Math::Matrix4 wvp = Math::Transpose(matFinal);
 	mTransformBuffer.Update(&wvp);
 
@@ -51,10 +74,10 @@ void GameState::Render()
 	mSampler.BindPS(0);
 	mTransformBuffer.BindVS(0);
 
-	TextureManager::Get()->BindPS(mTextureId, 0);
-	mObject.Render();
-
+	TextureManager::Get()->BindPS(object.textureId, 0);
+	object.meshBuffer.Render();
 }
+
 bool gCheValue = false;
 float gFloatVal = 0.0f;
 Math::Vector3 gV0 = Math::Vector3::Zero;
@@ -84,8 +107,6 @@ const char* gShapeNames[] =
 	"Transform",
 };
 
-bool gShapeVisible[] = { false, false, false, false, false, false, false };
-Math::Vector3 gTransformPosition = Math::Vector3::Zero;
 Shape gCurrentShape = Shape::None;
 void GameState::DebugUI() 
 {
@@ -93,7 +114,7 @@ void GameState::DebugUI()
 	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Hello Yall");
 	ImGui::Checkbox("IsChecked", &gCheValue);
-	ImGui::DragFloat("FloatVal", &gFloatVal, 1.0f, 0.0f, 10000.0);
+	ImGui::DragFloat("FloatVal", &gFloatVal);
 	ImGui::DragFloat3("V0", &gV0.x, 0.1f);
 	ImGui::DragFloat3("V1", &gV1.x, 0.1f);
 	ImGui::DragFloat3("V2", &gV2.x, 0.1f);
@@ -105,85 +126,68 @@ void GameState::DebugUI()
 		gCurrentShape = (Shape)currentShape;
 	}
 
-	if (gCurrentShape != Shape::None)
+
+	switch (gCurrentShape)
 	{
-		ImGui::Checkbox("Show Shape", &gShapeVisible[currentShape]);
+	case Shape::None: break;
+	case Shape::AABB:
+	{
+		//ImGui::DragFloat("Min");
+		//ImGui::DragFloat("Max");
+		SimpleDraw::AddAABB(gV0, gV1, gColor);
+		break;
+	}
+	case Shape::AABBFilled:
+	{
+		//ImGui::DragFloat("Min");
+		//ImGui::DragFloat("Max");
+		SimpleDraw::AddFilledAABB(gV0, gV1, gColor);
+		break;
+	}
+	case Shape::Sphere:
+	{
+		//ImGui::DragFloat("Min");
+		//ImGui::DragFloat("Max");
+		SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0);
+		break;
+	}
+	case Shape::GroundPlane:
+	{
+		/*ImGui::DragFloat("Min");
+		ImGui::DragFloat("Max");*/
+		SimpleDraw::AddGroundPlane(gFloatVal, gColor);
+		break;
+	}
+	case Shape::GroundCircle:
+	{
+		//ImGui::DragFloat("Min");
+		//ImGui::DragFloat("Max");
+		SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0);
+		break;
+	}
+	case Shape::Transform:
+	{
+		SimpleDraw::AddTransform(Math::Matrix4::Identity);
+		break;
+	}
 	}
 
-	if (gCurrentShape == Shape::Transform)
-	{
-		ImGui::DragFloat3("Transform Position", &gTransformPosition.x, 0.1f);
-	}
+	
+	ImGui::Separator();
+	ImGui::Text("Render Target");
+	ImGui::Image(
+		mRenderTarget.GetRawData(),
+		{ 128, 128 },
+		{ 0, 0 },
+		{ 1, 1 },
+		{ 1, 1, 1, 1 }, //white color to render target
+		{ 1, 1, 1, 1 }); //black border color
 
-	if (gCurrentShape != Shape::None && gShapeVisible[currentShape])
-	{ 
-		switch (gCurrentShape)
-		{
-		case Shape::None: break;
-		case Shape::AABB: 
-		{
-			ImGui::DragFloat3("Min", &gV0.x, 0.1f);
-			ImGui::DragFloat3("Max", &gV1.x, 0.1f);
-			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
-			SimpleDraw::AddAABB(gV0 + gV2, gV1 + gV2, gColor);
-			break;
-		}
-		case Shape::AABBFilled: 
-		{
-			ImGui::DragFloat3("Min", &gV0.x, 0.1f);
-			ImGui::DragFloat3("Max", &gV1.x, 0.1f);
-			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
-			SimpleDraw::AddFilledAABB(gV0 + gV2, gV1 + gV2, gColor);
-			break;
-		}
-		case Shape::Sphere:
-		{
-			ImGui::DragFloat3("Center", &gV0.x, 0.1f);
-			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
-			SimpleDraw::AddSphere(60, 60, gFloatVal, gColor, gV0 + gV2);
-			break;
-		}
-		case Shape::GroundPlane: 
-		{
-			/*ImGui::DragFloat("Min");
-			ImGui::DragFloat("Max");*/
-			SimpleDraw::AddGroundPlane(gFloatVal, gColor);
-			break;
-		}
-		case Shape::GroundCircle:
-		{
-			ImGui::DragFloat3("Center", &gV0.x, 0.1f);
-			ImGui::DragFloat3("Offset", &gV2.x, 0.1f);
-			SimpleDraw::AddGroundCircle(60, gFloatVal, gColor, gV0 + gV2);
-			break;
-		}
-		case Shape::Transform: 
-		{
-			Math::Matrix4 transform = Math::Matrix4::Translation(gTransformPosition);
-			SimpleDraw::AddTransform(Math::Matrix4::Identity);
-			break;
-		}
-		default:
-			break;
-		}
-	}
-
-	Math::Vector3 pos = Math::GetTranslation(mWorldMat);
-	if (ImGui::DragFloat3("ObjectPos", &pos.x))
-	{
-		mWorldMat._41 = pos.x;
-		mWorldMat._42 = pos.y;
-		mWorldMat._43 = pos.z;
-	}
 	ImGui::End();
-
-
-	//SimpleDraw::AddFace( gV0, gV1, gV2, Colors::AliceBlue);
 	SimpleDraw::AddGroundPlane(20.0f, Colors::White);//grid
-	//SimpleDraw::AddTransform(Math::Matrix4::Identity);// the 3 linea blue, red and yellow
 	SimpleDraw::Render(mCamera);
-
 }
+
 void GameState::UpdateCamera(float deltaTime) 
 {
 	InputSystem* input = InputSystem::Get();
@@ -222,3 +226,5 @@ void GameState::UpdateCamera(float deltaTime)
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
 }
+
+

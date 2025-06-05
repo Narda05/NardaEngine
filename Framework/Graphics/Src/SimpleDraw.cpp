@@ -2,6 +2,7 @@
 #include "SimpleDraw.h"
 #include "Camera.h"
 
+
 #include "ConstantBuffer.h"
 #include "MeshBuffer.h"
 #include "PixelShader.h"
@@ -79,7 +80,6 @@ namespace
 			mFaceVertices[mFaceVertexCount++] = { v1, color };
 			mFaceVertices[mFaceVertexCount++] = { v2, color };
 		}
-		
 	}
 	void SimpleDrawImpl::Render(const Camera& camera)
 	{

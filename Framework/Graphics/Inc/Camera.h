@@ -12,14 +12,14 @@ namespace NardaEngine::Graphics
 		};
 		void SetMode(ProjectionMode mode);
 
-		void SetPosition(const Math::Vector3 & position);
-		void SetDirection(const Math::Vector3 & direction);
+		void SetPosition(const Math::Vector3& position);
+		void SetDirection(const Math::Vector3& direction);
 		void SetLookAt(const Math::Vector3 & target);
 
 		//Perspective params
 
 		void SetFOV(float fov);
-		void SetAspect(float ratio);
+		void SetAspectRatio(float ratio);
 
 		//Ortographic params
 		void SetSize(float width, float height);
