@@ -50,6 +50,9 @@ void GameState::Update(float deltaTime)
 }
 void GameState::Render() 
 {
+	SimpleDraw::AddGroundPlane(20.0f, Colors::White);
+	SimpleDraw::Render(mCamera);
+
 // render to the render target
 	mRenderTarget.BegingRender();
 	RenderObject(mObject0, mRenderTargetCamera);
@@ -106,6 +109,7 @@ const char* gShapeNames[] =
 	"GroundCircle",
 	"Transform",
 };
+
 
 Shape gCurrentShape = Shape::None;
 void GameState::DebugUI() 
