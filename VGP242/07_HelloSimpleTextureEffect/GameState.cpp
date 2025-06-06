@@ -170,17 +170,6 @@ void GameState::DebugUI()
 	ImGui::Separator();
 	ImGui::Text("Render Target");
 
-	// Combo to select which object to look at
-	
-	ImGui::Combo("Camera Target", &selectedTarget, targetNames, IM_ARRAYSIZE(targetNames));
-	
-    // GetTranslation function is used by explicitly specifying the namespace.  
-    Math::Vector3 targetPosition = (selectedTarget == 0)  
-       ? NardaEngine::Math::GetTranslation(mObject0.matWorld)  
-       : NardaEngine::Math::GetTranslation(mObject1.matWorld);  
-    mRenderTargetCamera.SetLookAt(targetPosition);
-	mRenderTargetCamera.SetLookAt(targetPosition);
-
 	ImGui::Image(
 		mRenderTarget.GetRawData(),
 		{ 128, 128 },
