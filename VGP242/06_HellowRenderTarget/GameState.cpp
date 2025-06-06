@@ -27,7 +27,7 @@ void GameState::Initialize()
 
 	mObject0.textureId = TextureManager::Get()->LoadTexture(L"sun.jpg");
 	mObject1.textureId = TextureManager::Get()->LoadTexture(L"earth.jpg");
-	mObject1.matWorld = Math::Matrix4::Translation({ 0.0f, 1.0f, 0.0f });
+	mObject1.matWorld = Math::Matrix4::Translation({-3.0f, 0.0f, 0.0f });
 
 	constexpr uint32_t size = 512;
 	mRenderTarget.Initialize(size, size, RenderTarget::Format::RGBA_U32);
