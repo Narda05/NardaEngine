@@ -4,6 +4,8 @@ using namespace NardaEngine;
 using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
 
+static int selectedTarget = 0;
+const char* targetNames[] = { "Sun", "Earth" };
 void GameState::Initialize() 
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
@@ -55,8 +57,16 @@ void GameState::Render()
 
 // render to the render target
 	mRenderTarget.BegingRender();
-	RenderObject(mObject0, mRenderTargetCamera);
-	RenderObject(mObject1, mRenderTargetCamera);
+	if (selectedTarget == 0)
+	{
+		RenderObject(mObject0, mRenderTargetCamera);
+	}
+	else
+	{
+		RenderObject(mObject1, mRenderTargetCamera);
+	}
+	
+	
 	mRenderTarget.EndRender();
 
 	//render to the scene
@@ -115,8 +125,6 @@ inline Math::Vector3 GetTranslation(const Math::Matrix4& m)
 	return { m._41, m._42, m._43 };
 }
 
-static int selectedTarget = 0;
-const char* targetNames[] = { "Sun", "Earth" };
 Shape gCurrentShape = Shape::None;
 void GameState::DebugUI() 
 {
@@ -185,8 +193,7 @@ void GameState::DebugUI()
 	ImGui::Text("Render Target");
 
 	// Combo to select which object to look at
-	static int selectedTarget = 0;
-	const char* targetNames[] = { "Sun", "Earth" };
+	
 	ImGui::Combo("Camera Target", &selectedTarget, targetNames, IM_ARRAYSIZE(targetNames));
 	
     // GetTranslation function is used by explicitly specifying the namespace.  
