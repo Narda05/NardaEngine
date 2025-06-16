@@ -113,7 +113,7 @@ moonData.matWorld = moonRot * moonTrans;
 mSimpleTextureEffect.Render(moonData);
 ```
 
-### 🔄 Orbital Path Visualization  Rotation Speed (Day) Control Orbit Speed (Year)  Control
+### 🔄 Orbital Path Visualization  
 ![Image](https://github.com/user-attachments/assets/b8934f6d-442f-48e0-b48b-973fe705188b)
 *This control toggles the visibility of the planetary orbits. Useful for observing both the free motion of the planets and their defined orbital paths.*
 
