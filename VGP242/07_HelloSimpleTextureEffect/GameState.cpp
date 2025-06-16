@@ -181,6 +181,16 @@ void GameState::DebugUI()
 	ImGui::End();
 	//SimpleDraw::AddGroundPlane(20.0f, Colors::White);//grid
 	//SimpleDraw::Render(mCamera);
+	float rotation = 0.0f; // rotation of orbit or planet
+	Math::Vector3 position = Math::Vector3::Zero;
+	Math::Matrix4 matRot = Math::Matrix4::RotationY(rotation);
+	Math::Matrix4 matTrans = Math::Matrix4::Translation(position);
+	// rotation += dayTimeScale * deltaTime;
+	// orbitRotation += yearTimeScale * deltaTime;
+
+	// planet translation = matSunOrbitRotation * matDistanceFromSun;
+	// matWorld = planet rotation * planet translation;
+	Math::Matrix4 matWorld = matRot * matTrans;
 }
 
 void GameState::UpdateCamera(float deltaTime) 
