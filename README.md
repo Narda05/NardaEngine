@@ -141,6 +141,7 @@ if (gShowOrbits)
 
 ### 🎛️ ImGui controls and ImGui Control Panel Key Features
 ![Image](https://github.com/user-attachments/assets/70ae53cf-0f89-4a30-821a-9d67eb495343)
+
 *Clean and intuitive control interface*
 
 What this code does lets the user toggle orbit rings, user switch between original and custom speeds for all planets, provides sliders to adjust orbit (year) and rotation (day) speeds in real time and lets the user select any planet (or the sun/moon) to focus the camera and render target.
