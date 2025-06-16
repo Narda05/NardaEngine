@@ -22,11 +22,11 @@ It's a fully interactive solar system that combines realistic physics with beaut
 ## 🎬 See It In Action And Technical Architecture
 
 ### ⚡ Rotation Speed Day
-![Image](https://github.com/user-attachments/assets/5efff55e-a5c4-4a35-8c0d-3178f20143ed)
+![Image](https://github.com/user-attachments/assets/b1c8958e-e86c-447b-aeb4-07a52f9c9936)
 *Observe the Rotation Speed Day in the solar system*
 
 ### ⚡ Orbit Speed Year
-![Image](https://github.com/user-attachments/assets/00d40af5-5879-4f8d-816b-dfdb2a845b3d)
+![Image](https://github.com/user-attachments/assets/51774d0e-0f3c-42c6-8a44-a502be5c3fbc)
 *Observe the orbital motion of the planets around the Sun throughout the year in the solar system.*
 
 #### 🌞 Rotation Speed (Day) Control Orbit Speed (Year)  Control
