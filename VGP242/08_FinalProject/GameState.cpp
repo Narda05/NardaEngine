@@ -12,6 +12,13 @@ using namespace NardaEngine::Input;
 
 float gOriginalYearSpeeds[10] = { 0.08f, 0.06f, 0.04f, 0.2f, 0.03f, 0.015f, 0.010f, 0.007f, 0.005f, 0.003f };
 float gOriginalDaySpeeds[10] = { 0.1f, 0.03f, 0.1f, 0.2f, 0.08f, 0.2f, 0.15f, 0.12f, 0.10f, 0.05f };
+
+bool gShowOrbits = true;
+float gOrbitSpeed = 1.0f;
+float gRotationSpeed = 1.0f;
+int gSelectedPlanet = 0;
+const char* gPlanetNames[] = { "Sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+
 void GameState::Initialize() 
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
@@ -115,13 +122,65 @@ void GameState::Update(float deltaTime)
 	{
 		planet.Update(deltaTime);
 	}
-}
 
-bool gShowOrbits = true;
-float gOrbitSpeed = 1.0f;
-float gRotationSpeed = 1.0f;
-int gSelectedPlanet = 0;
-const char* gPlanetNames[] = { "Sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto" };
+	NardaEngine::Math::Vector3 focusPos = { 0.0f, 0.0f, 0.0f };
+	float planetRadius = 1.0f; // Default radius
+
+	if (gSelectedPlanet == 0) // Sun
+	{
+		// Sun position (origen)
+		focusPos = { mObject0.matWorld._41, mObject0.matWorld._42, mObject0.matWorld._43 };
+		planetRadius = 1.0f; //Sun radio 
+	}
+	else if (gSelectedPlanet == 4) // Moon
+	{
+		const auto& earthMat = mPlanets[2].GetRenderData().matWorld;
+		NardaEngine::Math::Vector3 earthPos = { earthMat._41, earthMat._42, earthMat._43 };
+		float moonAngle = mPlanets[3].mCurrentYearRotation;
+		float moonDist = mPlanets[3].mOrbitDistance;
+		NardaEngine::Math::Vector3 moonOffset = { cosf(moonAngle) * moonDist, 0.0f, sinf(moonAngle) * moonDist };
+		focusPos = earthPos + moonOffset;
+		planetRadius = 0.1f;
+	}
+	else
+	{
+		// Planets: Mercury=1, Venus=2, Earth=3, Mars=5, etc.
+		const auto& mat = mPlanets[gSelectedPlanet - 1].GetRenderData().matWorld;
+		focusPos = { mat._41, mat._42, mat._43 };
+		switch (gSelectedPlanet)
+		{
+		case 1: planetRadius = 0.3f; break; // Mercury
+		case 2: planetRadius = 0.4f; break; // Venus
+		case 3: planetRadius = 0.4f; break; // Earth
+		case 5: planetRadius = 0.4f; break; // Mars
+		case 6: planetRadius = 0.6f; break; // Jupiter
+		case 7: planetRadius = 0.5f; break; // Saturn
+		case 8: planetRadius = 0.4f; break; // Uranus
+		case 9: planetRadius = 0.4f; break; // Neptune
+		case 10: planetRadius = 0.4f; break; // Pluto
+		}
+	}
+
+	// Calculate a suitable distance for the camera
+	float minDistance = 2.0f;
+	float focusDistance = minDistance;
+	if (gSelectedPlanet == 0)
+	{
+		focusDistance = 3.0f;
+	}
+	else if (gSelectedPlanet == 4)
+	{
+		focusDistance = std::max(mPlanets[3].mOrbitDistance * 0.5f + planetRadius * 8.0f, minDistance);
+	}
+	else
+	{
+		focusDistance = std::max(planetRadius * 1.2f, minDistance);
+	}
+	NardaEngine::Math::Vector3 cameraOffset = { 0.0f, 0.5f, -focusDistance };
+
+	mRenderTargetCamera.SetPosition(focusPos + cameraOffset);
+	mRenderTargetCamera.SetLookAt(focusPos);
+}
 
 void GameState::Render() 
 {
@@ -262,8 +321,8 @@ void GameState::DebugUI()
 
 	if (useCustomSpeeds)
 	{
-		ImGui::SliderFloat("OrbitSpeed (year)", &gOrbitSpeed, 0.001f, 0.2f);
-		ImGui::SliderFloat("RotationSpeed (day)", &gRotationSpeed, 0.001f, 0.2f);
+		ImGui::SliderFloat("RotationSpeed (Day)", &gOrbitSpeed, 0.001f, 0.2f);
+		ImGui::SliderFloat("Orbit Speed (Year)", &gRotationSpeed, 0.001f, 0.2f);
 		for (Planet& planet : mPlanets)
 		{
 			planet.mYearSpeed = gOrbitSpeed;
@@ -332,63 +391,6 @@ void GameState::DebugUI()
 
 	//Select planet to focus
 	ImGui::Combo("Focus Planet", &gSelectedPlanet, gPlanetNames, IM_ARRAYSIZE(gPlanetNames));
-	NardaEngine::Math::Vector3 focusPos = { 0.0f, 0.0f, 0.0f };
-	float planetRadius = 1.0f; // Default radius
-
-	if (gSelectedPlanet == 0) // Sun
-	{
-		// Sun position (origen)
-		focusPos = { mObject0.matWorld._41, mObject0.matWorld._42, mObject0.matWorld._43 };
-		planetRadius = 1.0f; //Sun radio 
-	}
-	else if (gSelectedPlanet == 4) // Moon
-	{
-		const auto& earthMat = mPlanets[2].GetRenderData().matWorld;
-		NardaEngine::Math::Vector3 earthPos = { earthMat._41, earthMat._42, earthMat._43 };
-		float moonAngle = mPlanets[3].mCurrentYearRotation;
-		float moonDist = mPlanets[3].mOrbitDistance;
-		NardaEngine::Math::Vector3 moonOffset = { cosf(moonAngle) * moonDist, 0.0f, sinf(moonAngle) * moonDist };
-		focusPos = earthPos + moonOffset;
-		planetRadius = 0.1f;
-	}
-	else
-	{
-		// Planets: Mercury=1, Venus=2, Earth=3, Mars=5, etc.
-		const auto& mat = mPlanets[gSelectedPlanet - 1].GetRenderData().matWorld;
-		focusPos = { mat._41, mat._42, mat._43 };
-		switch (gSelectedPlanet)
-		{
-		case 1: planetRadius = 0.3f; break; // Mercury
-		case 2: planetRadius = 0.4f; break; // Venus
-		case 3: planetRadius = 0.4f; break; // Earth
-		case 5: planetRadius = 0.4f; break; // Mars
-		case 6: planetRadius = 0.6f; break; // Jupiter
-		case 7: planetRadius = 0.5f; break; // Saturn
-		case 8: planetRadius = 0.4f; break; // Uranus
-		case 9: planetRadius = 0.4f; break; // Neptune
-		case 10: planetRadius = 0.4f; break; // Pluto
-		}
-	}
-
-	// Calculate a suitable distance for the camera
-	float minDistance = 2.0f;
-	float focusDistance = minDistance;
-	if (gSelectedPlanet == 0)
-	{
-		focusDistance = 3.0f; 
-	}
-	else if (gSelectedPlanet == 4)
-	{
-		focusDistance = std::max(mPlanets[3].mOrbitDistance * 0.5f + planetRadius * 8.0f, minDistance);
-	}
-	else
-	{
-		focusDistance = std::max(mPlanets[gSelectedPlanet - 1].mOrbitDistance * 0.5f + planetRadius * 8.0f, minDistance);
-	}
-	NardaEngine::Math::Vector3 cameraOffset = { 0.0f, 0.5f, -focusDistance };
-
-	mRenderTargetCamera.SetPosition(focusPos + cameraOffset);
-	mRenderTargetCamera.SetLookAt(focusPos);
 
 	//Render Target Camera
 	ImGui::Separator();
