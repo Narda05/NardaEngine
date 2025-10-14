@@ -23,6 +23,8 @@ namespace NardaEngine::Graphics
 		static MeshPC CreatePlanePC(int numRows, int numColums, float spacing, bool horizontal = true);
 		static MeshPX CreatePlanePX(int numRows, int numColums, float spacing, bool horizontal = true);
 		static MeshPX CreatePlaneVerticalPX(int numRows, int numColums, float spacing, bool horizontal = false);
+		static Mesh CreatePlane(int numRows, int numColums, float spacing, bool horizontal = true);
+
 
 		//Cylinder
 		static MeshPC CreateCylinderPC(int slices, int rings);
@@ -30,6 +32,8 @@ namespace NardaEngine::Graphics
 		//Sphere
 		static MeshPC CreateSpherePC(int slices, int rings, float radius);
 		static MeshPX CreateSpherePX(int slices, int rings, float radius);
+		static Mesh CreateSphere(int slices, int rings, float radius);
+
 
 		//Sky
 		static MeshPX CreateSkySpherePX(int slices, int rings, float radius);
