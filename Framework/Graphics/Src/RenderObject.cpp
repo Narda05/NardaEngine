@@ -10,4 +10,6 @@ void RenderObject::Terminate()
 	TextureManager* tm = TextureManager::Get(); 
 	tm->RealeaseTexture(diffuseMapId); 
 	tm->RealeaseTexture(specMadId);
+	tm->RealeaseTexture(normalMapId);
+	tm->RealeaseTexture(bumpMapId);
 }

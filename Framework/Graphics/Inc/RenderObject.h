@@ -15,7 +15,9 @@ namespace NardaEngine::Graphics
 		Transform transform;	// location
 		MeshBuffer meshBuffer;	// shape
 		Material material;	//light dta
-		TextureId diffuseMapId;	//diffurse texture for an object 
+		TextureId diffuseMapId;	//diffuse texture for an object 
 		TextureId specMadId;	//specular texture for an object
+		TextureId normalMapId; // normal map texture for an object
+		TextureId bumpMapId; // bump map texture for an object
 	};
 }

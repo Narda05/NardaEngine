@@ -24,6 +24,9 @@ void GameState::Initialize()
 	TextureManager* tm = TextureManager::Get();
 	mRenderObject.diffuseMapId = tm->LoadTexture("earth.jpg");
 	mRenderObject.specMadId = tm->LoadTexture("earth_spec.jpg");
+	mRenderObject.normalMapId = tm->LoadTexture("earth_normal.jpg");
+	mRenderObject.bumpMapId = tm->LoadTexture("earth_bump.jpg");
+
 
 	std::filesystem::path effectPath = "../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(effectPath);
@@ -70,6 +73,8 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Material", &mRenderObject.material.specular.r);
 		ImGui::DragFloat("Shininess#Material", &mRenderObject.material.shininess, 0.1f, 0.0f, 10000.0f);
 	}
+
+	mStandardEffect.DebugUI();
 	ImGui::End();
 }
 
