@@ -13,27 +13,34 @@ void StandardEffect::Initialize(const std::filesystem::path& path)
 {
 	mTransformBuffer.Initialize();
 	mLightBuffer.Initialize();
+	mMaterialBuffer.Initialize();
 
 	mVertexShader.Initialize<Vertex>(path);
 	mPixelShader.Initialize(path);
+	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
 
 }
 
 void StandardEffect::Terminate()
 {
+	mSampler.Terminate();
 	mPixelShader.Terminate();
 	mVertexShader.Terminate();
+	mMaterialBuffer.Terminate();
 	mLightBuffer.Terminate();
 	mTransformBuffer.Terminate();
+	
 }
 void StandardEffect::Begin()
 {
 	mVertexShader.Bind();
 	mPixelShader.Bind();
+	mSampler.BindPS(0);
 
 	mTransformBuffer.BindVS(0);
 	mLightBuffer.BindVS(1);
 	mLightBuffer.BindPS(1);
+	mMaterialBuffer.BindPS(2);
 }
 void StandardEffect::End()
 {
@@ -53,8 +60,13 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	mTransformBuffer.Update(data);
 
 	mLightBuffer.Update(*mDirectionalLight);
+	mMaterialBuffer.Update(renderObject.material);
 
-	renderObject.meshbuffer.Render();
+	TextureManager* tm = TextureManager::Get();
+	tm->BindPS(renderObject.diffuseMapId, 0);
+	tm->BindPS(renderObject.specMadId, 1);
+
+	renderObject.meshBuffer.Render();
 
 }
 void StandardEffect::SetCamera(const Camera& camera)

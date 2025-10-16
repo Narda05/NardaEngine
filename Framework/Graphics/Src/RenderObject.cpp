@@ -6,5 +6,8 @@ using namespace NardaEngine::Graphics;
 
 void RenderObject::Terminate()
 {
-	meshbuffer.Terminate();
+	meshBuffer.Terminate();
+	TextureManager* tm = TextureManager::Get(); 
+	tm->RealeaseTexture(diffuseMapId); 
+	tm->RealeaseTexture(specMadId);
 }

@@ -15,6 +15,22 @@ cbuffer LightBuffer : register(b1)
     float4 lightDirection;
 }
 
+cbuffer MaterialBuffer : register(b2)
+{
+    float4 materialEmissive;
+    float4 materialAmbient;
+    float4 materialDiffuse;
+    float4 materialSpecular;
+    float4 materialShininess;
+}
+
+SamplerState textureSampler : register(s0);
+
+Texture2D diffuseMap : register(t0);
+Texture2D specMap : register(t1);
+
+
+
 struct VS_INPUT
 {
     float3 position : POSITION;
@@ -56,22 +72,27 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
     float3 view = normalize(input.dirToView);
     
     //Emissive 
-    float4 emissive = 0.0f;
+    float4 emissive = materialEmissive;
     
     //ambient
-    float4 ambient = lightAmbient;
+    float4 ambient = lightAmbient * materialAmbient;
     
     //Diffuse 
     float d = saturate(dot(light, n));
-    float4 diffuse = d * lightDiffuse;
+    float4 diffuse = d * lightDiffuse * materialDiffuse;
     
     // Specular
     float3 r = reflect(-light, n);
     float base = saturate(dot(r, view));
-    float s = pow(base, 10.0f);
-    float4 specular = s * lightSpecular;
+    float s = pow(base, materialShininess);
+    float4 specular = s * lightSpecular *materialSpecular;
     
-    float4 finalColor = (emissive + ambient + diffuse + specular);
+    // Colors 
+    float4 diffuseMapColor = diffuseMap.Sample(textureSampler, input.texCoord);
+    float4 specMapColor = specMap.Sample(textureSampler, input.texCoord).r;
+    
+    
+    float4 finalColor = (emissive + ambient + diffuse) * diffuseMapColor + (specular * specMapColor);
     
     return finalColor;
    
