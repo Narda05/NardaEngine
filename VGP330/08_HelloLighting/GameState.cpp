@@ -31,10 +31,10 @@ void GameState::Initialize()
 	mRenderObject.transform.position = { 0.0f, 0.0f, 0.0f };
 	Mesh mesh2 = MeshBuilder::CreateSphere(30, 30, 0.5f);
 	mRenderObject2.meshBuffer.Initialize(mesh2);
-	mRenderObject2.diffuseMapId = tm->LoadTexture("earth.jpg");        
-	mRenderObject2.specMadId = tm->LoadTexture("earth_spec.jpg");
-	mRenderObject2.normalMapId = tm->LoadTexture("earth_normal.jpg");
-	mRenderObject2.bumpMapId = tm->LoadTexture("earth_bump.jpg");
+	mRenderObject2.diffuseMapId = tm->LoadTexture("rockytwo.jpg");        
+	mRenderObject2.specMadId = tm->LoadTexture("rockytwo_spec.jpg");
+	mRenderObject2.normalMapId = tm->LoadTexture("rockytwo_normal.jpg");
+	mRenderObject2.bumpMapId = tm->LoadTexture("rockytwo_bump.jpg");
 	mRenderObject2.transform.position = { 2.0f, 0.0f, 0.0f };
 	mRenderObject2.transform.scale = { 0.5f, 0.5f, 0.5f };
 
@@ -47,6 +47,7 @@ void GameState::Initialize()
 	mRenderObject3.bumpMapId = tm->LoadTexture("rocky_bump.jpg");
 	mRenderObject3.transform.position = { -2.0f, 0.0f, 0.0f };
 	mRenderObject3.transform.scale = { 2.0f, 1.0f, 2.0f };
+
 
 
 	std::filesystem::path effectPath = "../../Assets/Shaders/Standard.fx";
