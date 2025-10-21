@@ -13,6 +13,7 @@
 #include "MeshBuilder.h"
 #include "MeshTypes.h"
 #include "Material.h"
+#include "Model.h"
 #include "PixelShader.h"
 #include "RenderObject.h"
 #include "VertexShader.h"
