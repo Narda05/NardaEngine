@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Material.h"
 #include "TextureManager.h"
+#include "ModelManager.h"
 
 namespace NardaEngine::Graphics
 {
@@ -19,5 +20,17 @@ namespace NardaEngine::Graphics
 		TextureId specMadId;	//specular texture for an object
 		TextureId normalMapId; // normal map texture for an object
 		TextureId bumpMapId; // bump map texture for an object
+	};
+
+	class RenderGroup
+	{
+	public: 
+		void Initialize(const std::filesystem::path& modelFilePath);
+		void Terminate(); 
+
+		ModelId modelId; 
+		Transform transform;
+		std::vector<RenderObject> renderObjects; 
+
 	};
 }

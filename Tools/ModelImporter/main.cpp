@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 
 			printf("Reading Vertices...\n");
 			Mesh& mesh = meshData.mesh;
-			mesh.vertices.resize(numVertices);
+			mesh.vertices.reserve(numVertices);
 
 			const aiVector3D* positions = aiMesh->mVertices;
 			const aiVector3D* normals = aiMesh->mNormals;
@@ -136,6 +136,10 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+	printf("Saving Model...\n");
+	ModelIO::SaveModel(args.outputFileName, model);
+
+	printf("Import Completed!\n");
 
 	return 0;
 }
