@@ -18,12 +18,6 @@ private:
 	NardaEngine::Graphics::Camera mCamera;
 	NardaEngine::Graphics::DirectionalLight mDirectionalLight;
 
-	//First Render Object
-	NardaEngine::Graphics::RenderObject mRenderObject;
-	//Second Render Object
-	NardaEngine::Graphics::RenderObject mRenderObject2;
-	//Third Render Object
-	NardaEngine::Graphics::RenderObject mRenderObject3;
-
+	NardaEngine::Graphics::RenderGroup mCharacter; 
 	NardaEngine::Graphics::StandardEffect mStandardEffect;
 };
