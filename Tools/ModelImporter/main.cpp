@@ -56,6 +56,114 @@ Vector2 ToTexCoord(const aiVector3D& v)
 	};
 }
 
+Color ToColor(const aiColor3D& c)
+{
+	return {
+		static_cast<float>(c.r),
+		static_cast<float>(c.g),
+		static_cast<float>(c.b),
+		static_cast<float>(1.0f)
+	};
+}
+
+
+void ExportEmbeddedTexture(const aiTexture * texture, const Arguments& args,
+	const std::filesystem::path& fileName)
+{
+	printf("Extracting embedded texture %s\n", fileName.u8string().c_str());
+
+	std::string fullFileName = args.outputFileName.u8string();
+	fullFileName = fullFileName.substr(0, fullFileName.rfind('/') + 1);
+	fullFileName += fileName.filename().u8string();
+
+	FILE* file = nullptr;
+	auto err = fopen_s(&file, fullFileName.c_str(), "wb");
+	if (err != 0 || file == nullptr)
+	{
+		printf("Error: failed to create texture file %s\n", fullFileName.c_str());
+		return;
+	}
+
+	size_t written = fwrite(texture->pcData, 1, texture->mWidth, file);
+	ASSERT(written == texture->mWidth, "Error: failed to extract embedded texture");
+	fclose(file);
+	
+}
+
+std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
+	aiTextureType textureType, const Arguments& args, const std::string& suffix,
+	uint32_t materialIndex)
+{
+	const uint32_t textureCount = aiMaterial->GetTextureCount(textureType);
+	if (textureCount == 0)
+	{
+		return "";
+	}
+
+	std::filesystem::path textureName;
+	aiString texturePath;
+	if (aiMaterial->GetTexture(textureType, 0, &texturePath) == aiReturn_SUCCESS)
+	{
+		if (texturePath.C_Str()[0] == '*')
+		{
+			std::string fileName = args.inputFileName.u8string(); 
+			fileName.erase(fileName.length() - 4);
+			fileName += suffix; 
+			fileName += texturePath.C_Str()[1];
+
+			ASSERT(scene->HasTextures(), "Error: no embedded texture found");
+
+			int textureIndex = atoi(texturePath.C_Str() + 1);
+			ASSERT(textureIndex < scene->mNumTextures, "Error: invalid embedded texture index");
+
+			const aiTexture* embeddedTexture = scene->mTextures[textureIndex];
+			ASSERT(embeddedTexture->mHeight == 0, "Error: uncompressed texture found");
+
+			if (embeddedTexture->CheckFormat("png"))
+			{
+				fileName += ".jpg";
+			}
+			else if (embeddedTexture->CheckFormat("jpg"))
+			{
+				fileName += ".png";
+			}
+			else
+			{
+				ASSERT(false, "Error: unsuported texture format");
+			}
+
+			printf("Adding Texture %s...\n", fileName.c_str());
+			ExportEmbeddedTexture(embeddedTexture, args, fileName);
+			textureName = fileName;
+
+		}
+		else if (auto embeddedTexture = scene->GetEmbeddedTexture(texturePath.C_Str()); embeddedTexture)
+		{
+			std::filesystem::path embeddedFilePath = texturePath.C_Str();
+			std::string fileName = args.inputFileName.u8string();
+			fileName.erase(fileName.length() - 4);
+			fileName += suffix;
+			fileName += "_" + std::to_string(materialIndex);
+			fileName += embeddedFilePath.extension().u8string();
+
+			printf("Adding Texture %s\n", fileName.c_str());
+			ExportEmbeddedTexture(embeddedTexture, args, fileName);
+			textureName = fileName;
+		}
+		else
+		{
+			std::filesystem::path filePath = texturePath.C_Str(); 
+			std::string fileName = filePath.u8string();
+
+			printf("Adding Texture %s\n", fileName.c_str());
+			textureName = fileName;
+		}
+	}
+
+	return textureName.filename().u8string();
+
+}
+
 
 
 int main(int argc, char* argv[])
@@ -87,6 +195,7 @@ int main(int argc, char* argv[])
 	printf("Importing %s...\n", args.inputFileName.u8string().c_str());
 
 	Model model; 
+
 	if (scene->HasMeshes())
 	{
 		printf("Reading Mesh Data...\n");
@@ -99,7 +208,7 @@ int main(int argc, char* argv[])
 			}
 
 			const uint32_t numVertices = aiMesh->mNumVertices;
-			const uint32_t numFaces = aiMesh->mNumFaces; 
+			const uint32_t numFaces = aiMesh->mNumFaces;
 			const uint32_t numIndices = numFaces * 3;
 
 			Model::MeshData& meshData = model.meshData.emplace_back();
@@ -117,13 +226,13 @@ int main(int argc, char* argv[])
 			const aiVector3D* texCoords = (aiMesh->HasTextureCoords(0)) ? aiMesh->mTextureCoords[0] : nullptr;
 			for (uint32_t v = 0; v < numVertices; ++v)
 			{
-				Vertex& vertex = mesh.vertices.emplace_back(); 
+				Vertex& vertex = mesh.vertices.emplace_back();
 				vertex.position = ToVector3(positions[v]) * args.scale;
 				vertex.normal = ToVector3(normals[v]);
 				vertex.tangent = tangents ? ToVector3(tangents[v]) : Vector3::Zero;
 				vertex.uvCoord = texCoords ? ToTexCoord(texCoords[v]) : Vector2::Zero;
 			}
-			printf("Reading Indices...\n"); 
+			printf("Reading Indices...\n");
 			mesh.indices.reserve(numIndices);
 			const auto& aiFaces = aiMesh->mFaces;
 			for (uint32_t f = 0; f < numFaces; ++f)
@@ -136,8 +245,41 @@ int main(int argc, char* argv[])
 			}
 		}
 	}
+
+	if (scene->HasMeshes())
+	{
+		printf("Reading Mesh Data...\n");
+		for (uint32_t materialIndex = 0; materialIndex < scene->mNumMaterials; ++materialIndex)
+		{
+			const auto& aiMaterial = scene->mMaterials[materialIndex];
+			aiColor3D emissive, ambient, diffuse, specular;
+			ai_real speculasPower = 10.0f;
+
+			aiMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+			aiMaterial->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+			aiMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+			aiMaterial->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+			aiMaterial->Get(AI_MATKEY_SHININESS, speculasPower);
+
+			Model::MaterialData& materialData = model.materialData.emplace_back();
+			materialData.material.emissive = ToColor(emissive);
+			materialData.material.ambient = ToColor(ambient);
+			materialData.material.diffuse = ToColor(diffuse);
+			materialData.material.specular = ToColor(specular);
+			materialData.material.shininess = static_cast<float>(speculasPower);
+
+			materialData.diffuseMapName = FindTexture(scene, aiMaterial, aiTextureType_DIFFUSE, args, "_diff", materialIndex);
+			materialData.specMapName = FindTexture(scene, aiMaterial, aiTextureType_SPECULAR, args, "_spec", materialIndex);
+			materialData.normalMapName = FindTexture(scene, aiMaterial, aiTextureType_NORMALS, args, "_norm", materialIndex);
+			materialData.bumpMapName = FindTexture(scene, aiMaterial, aiTextureType_DISPLACEMENT, args, "_bump", materialIndex);
+		}
+	}
+
 	printf("Saving Model...\n");
 	ModelIO::SaveModel(args.outputFileName, model);
+
+	printf("Saving Materil... \n");
+	ModelIO::SaveMaterial(args.outputFileName, model);
 
 	printf("Import Completed!\n");
 
