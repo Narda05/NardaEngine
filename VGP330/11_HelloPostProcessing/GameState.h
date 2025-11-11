@@ -25,5 +25,8 @@ private:
 	NardaEngine::Graphics::StandardEffect mStandardEffect;
 	NardaEngine::Graphics::RenderTarget mRenderTarget; 
 	NardaEngine::Graphics::RenderObject mScreenQuad;
+	NardaEngine::Graphics::Texture mCombineTexture;
+
+
 	NardaEngine::Graphics::PostProcessingEffect mPostProcessingEffect;
 };

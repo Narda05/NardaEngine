@@ -20,9 +20,9 @@ namespace NardaEngine::Graphics
 			Mirror, 
 			Blur,
 			Combine2,
-			MonitorBlur, 
+			MotionBlur, 
 			ChromaticAberration,
-			wave
+			Wave
 		};;
 
 		void Initialize(const std::filesystem::path& filePath);
@@ -56,6 +56,14 @@ namespace NardaEngine::Graphics
 		std::array<const Texture*, 4> mTexture;
 
 		Mode mMode = Mode::None;
+		float mMirrorScaleX = -1.0f; 
+		float mMirrorScaleY = -1.0f; 
+		float mBluerStrength = 5.0f;
+		float mCombine2Alpha = 0.5f;
+		
+		float mAberrationValue = 0.005f;
+		float mWaveLength = 0.05f;
+		float mNumWaves = 20.0f;
 
 	};
 }
