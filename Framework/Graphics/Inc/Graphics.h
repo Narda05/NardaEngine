@@ -29,6 +29,7 @@
 #include "Transform.h"
 #include "RenderTarget.h"
 #include "SimpleTextureEffect.h"
+#include "PostProcessingEffect.h"
 
 
 

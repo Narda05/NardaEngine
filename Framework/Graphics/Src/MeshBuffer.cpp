@@ -98,6 +98,8 @@ void MeshBuffer::CreateIndexBuffer(const void* indices, uint32_t indexCount)
 	mIndexCount = indexCount;
 	auto device = GraphicsSystem::Get()->GetDevice();
 
+
+
 	//index buffer 
 	D3D11_BUFFER_DESC bufferDesc{};
 	bufferDesc.ByteWidth = static_cast<UINT>(indexCount * sizeof(uint32_t));
