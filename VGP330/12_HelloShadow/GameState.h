@@ -19,6 +19,10 @@ private:
 	NardaEngine::Graphics::DirectionalLight mDirectionalLight;
 
 	NardaEngine::Graphics::RenderGroup mCharacter;
+	NardaEngine::Graphics::RenderGroup mCharacter2;
+	NardaEngine::Graphics::RenderGroup mCharacter3;
+	NardaEngine::Graphics::RenderObject mSphere01;
+	NardaEngine::Graphics::RenderObject mSphere02;
 	NardaEngine::Graphics::RenderObject mGround;
 
 	NardaEngine::Graphics::StandardEffect mStandardEffect;

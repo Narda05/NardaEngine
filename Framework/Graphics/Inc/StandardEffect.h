@@ -13,6 +13,7 @@ namespace NardaEngine::Graphics
 	class Camera; 
 	class RenderObject; 
 	class RenderGroup;
+	class Texture;
 
 	class StandardEffect final
 	{
@@ -29,6 +30,8 @@ namespace NardaEngine::Graphics
 
 		void SetCamera(const Camera& camera); 
 		void SetDirectionalLight(const DirectionalLight& directionalLight);
+		void SetLightCamera(const Camera& camera);
+		void SetShadowMap(const Texture& shadowMap);
 
 		void DebugUI(); 
 
@@ -37,6 +40,7 @@ namespace NardaEngine::Graphics
 		{
 			Math::Matrix4 wvp; // world view projetion
 			Math::Matrix4 world; // world matrix
+			Math::Matrix4 lwvp; // world view projection OF THE LIGHT OBJECT FOR SHADOWS
 			Math::Vector3 viewPosition; // position of the view item (camera)
 			float padding = 0.0f; // padding to make the structure 16 byte aligned
 		};
@@ -47,8 +51,10 @@ namespace NardaEngine::Graphics
 			int useSpecMap = 1;
 			int useNormalMap = 1;
 			int useBumpMap = 1;
+			int useShadowMap = 1;
 			float bumpWeight = 0.1f;
-			float padding[3] = { 0.0f };
+			float depthBias = 0.000003f;
+			float padding =  0.0f;
 		};
 
 		using TransformBuffer = TypedConstantBuffer<TransformData>;
@@ -68,8 +74,11 @@ namespace NardaEngine::Graphics
 		PixelShader mPixelShader; 
 		Sampler mSampler;
 
+		SettingsData mSettingsData;
 		const Camera* mCamera = nullptr;
 		const DirectionalLight* mDirectionalLight = nullptr;
-		SettingsData mSettingsData; 
+		const Camera* mLightCamera = nullptr;
+		const Texture* mShadowMap = nullptr;
+
 	};
 }

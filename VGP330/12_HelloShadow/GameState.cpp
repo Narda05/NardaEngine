@@ -18,8 +18,17 @@ void GameState::Initialize()
 	mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
+	//Characters
 	mCharacter.Initialize("Character01/Character01.model");
-	
+	mCharacter2.Initialize("Character02/Character02.model");
+	mCharacter3.Initialize("Character03/Character03.model");
+
+	//Spheres
+	Mesh sphereMesh1 = MeshBuilder::CreateSphere(30, 30, 1.0f);
+	mSphere01.meshBuffer.Initialize(sphereMesh1);
+	Mesh sphereMesh2 = MeshBuilder::CreateSphere(30, 30, 1.0f);
+	mSphere02.meshBuffer.Initialize(sphereMesh1);
+
 
 	Mesh groundMesh = MeshBuilder::CreatePlane(10, 10, 1.0f); 
 	mGround.meshBuffer.Initialize(groundMesh);
@@ -27,22 +36,35 @@ void GameState::Initialize()
 
 	MeshPX screenQuad = MeshBuilder::CreateScreenQuadPX();
 
-
-
 	
 	std::filesystem::path shaderFile = "../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFile);
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
+	mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+	mStandardEffect.SetShadowMap(mShadowEffect.GetDepthMap());
 
 	mShadowEffect.Initialize();
 	mShadowEffect.SetDirectionalLight(mDirectionalLight);
+
+	mCharacter.transform.position = { 0.0f, 0.0f, 0.0f }; 
+	mCharacter2.transform.position = { 2.0f, 0.0f, 0.0f };
+	mCharacter3.transform.position = { -2.0f, 0.0f, 0.0f };
+
+	mSphere01.transform.position = { 2.0f, 1.0f, 3.0f };
+	mSphere02.transform.position = { -2.0f, 1.0f, 3.0f };
+
+
 }
 void GameState::Terminate()
 {
-	mStandardEffect.Terminate();
+	mShadowEffect.Terminate();
 	mStandardEffect.Terminate();
 	mCharacter.Terminate();
+	mCharacter2.Terminate();
+	mCharacter3.Terminate();
+	mSphere01.Terminate();
+	mSphere02.Terminate();
 	mGround.Terminate();
 }
 void GameState::Update(float deltaTime) 
@@ -53,10 +75,18 @@ void GameState::Render()
 {
 	mShadowEffect.Begin();
 		mShadowEffect.Render(mCharacter);
+		mShadowEffect.Render(mCharacter2);
+		mShadowEffect.Render(mCharacter3);
+		mShadowEffect.Render(mSphere01);
+		mShadowEffect.Render(mSphere02);
 	mShadowEffect.End();
 
 	mStandardEffect.Begin();
 		mStandardEffect.Render(mCharacter);
+		mStandardEffect.Render(mCharacter2);
+		mStandardEffect.Render(mCharacter3);
+		mStandardEffect.Render(mSphere01);
+		mStandardEffect.Render(mSphere02);
 		mStandardEffect.Render(mGround);
 	mStandardEffect.End();
 
@@ -98,7 +128,50 @@ void GameState::DebugUI()
 		}
 	}
 	ImGui::PopID();
+	//==================================================
+	ImGui::PushID("Character02");
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		for (uint32_t i = 0; i < mCharacter2.renderObjects.size(); ++i)
+		{
+			Material& material = mCharacter2.renderObjects[i].material;
+			std::string renderObjectId = "RenderObject " + std::to_string(i);
+			ImGui::PushID(renderObjectId.c_str());
+			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+			{
+				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
 
+			}
+			ImGui::PopID();
+		}
+	}
+	ImGui::PopID();
+	//==================================================
+	ImGui::PushID("Character03");
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		for (uint32_t i = 0; i < mCharacter3.renderObjects.size(); ++i)
+		{
+			Material& material = mCharacter3.renderObjects[i].material;
+			std::string renderObjectId = "RenderObject " + std::to_string(i);
+			ImGui::PushID(renderObjectId.c_str());
+			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+			{
+				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
+
+			}
+			ImGui::PopID();
+		}
+	}
+	ImGui::PopID();
 	//==================================================
 	mStandardEffect.DebugUI();
 	mShadowEffect.DebugUI();

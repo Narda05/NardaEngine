@@ -30,8 +30,8 @@ void GameState::Initialize()
 	mScreenQuad.meshBuffer.Initialize(screenQuad);
 
 
-	mCharacter2.transform.position.x = -2.0f;
-	mCharacter3.transform.position.x = 2.0f;
+	NardaEngine::Graphics::RenderGroup mCharacter2;
+	NardaEngine::Graphics::RenderGroup mCharacter3;
 
 	std::filesystem::path shaderFile = "../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(shaderFile);
