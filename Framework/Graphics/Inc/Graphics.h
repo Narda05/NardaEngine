@@ -27,6 +27,8 @@
 #include "StandardEffect.h"
 #include "BlendState.h"
 #include "TextureManager.h"
+#include "Terrain.h"
+#include "TerrainEffect.h"
 #include "Transform.h"
 #include "RenderTarget.h"
 #include "SimpleTextureEffect.h"
