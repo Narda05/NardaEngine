@@ -34,6 +34,8 @@
 #include "SimpleTextureEffect.h"
 #include "PostProcessingEffect.h"
 
+#include "ForceField.h"
+
 
 
 
