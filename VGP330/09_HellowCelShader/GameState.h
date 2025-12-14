@@ -25,5 +25,5 @@ private:
 	//Third Render Object
 	NardaEngine::Graphics::RenderObject mRenderObject3;
 
-	NardaEngine::Graphics::StandardEffect mStandardEffect;
+
 };
