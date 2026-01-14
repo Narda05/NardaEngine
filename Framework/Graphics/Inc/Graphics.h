@@ -33,6 +33,9 @@
 #include "RenderTarget.h"
 #include "SimpleTextureEffect.h"
 #include "PostProcessingEffect.h"
+#include "Keyframe.h"
+#include "Animation.h"
+#include "AnimationBuilder.h"
 
 #include "ForceField.h"
 
