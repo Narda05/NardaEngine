@@ -46,6 +46,10 @@ void GameState::Render()
 	if (mDrawSkeleton)
 	{
 		AnimationUtil::BoneTransforms boneTransforms;
+		AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, boneTransforms);
+		AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
+		AnimationUtil::ComputeBoneTransforms(mCharacter2.modelId, boneTransforms);
+		AnimationUtil::DrawSkeleton(mCharacter2.modelId, boneTransforms);
 		AnimationUtil::ComputeBoneTransforms(mCharacter3.modelId, boneTransforms);
 		AnimationUtil::DrawSkeleton(mCharacter3.modelId, boneTransforms);
 		SimpleDraw::AddGroundPlane(20.0f, Colors::White);
@@ -58,6 +62,8 @@ void GameState::Render()
 		SimpleDraw::Render(mCamera);
 
 		mStandardEffect.Begin();
+		mStandardEffect.Render(mCharacter);
+		mStandardEffect.Render(mCharacter2);
 		mStandardEffect.Render(mCharacter3);
 		mStandardEffect.End();
 	}
@@ -78,7 +84,49 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
 	}
 	//==================================================
-	// 
+	ImGui::PushID("Character01");
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		for (uint32_t i = 0; i < mCharacter.renderObjects.size(); ++i)
+		{
+			Material& material = mCharacter.renderObjects[i].material;
+			std::string renderObjectId = "RenderObject " + std::to_string(i);
+			ImGui::PushID(renderObjectId.c_str());
+			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+			{
+				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
+
+			}
+			ImGui::PopID();
+		}
+	}
+	ImGui::PopID();
+	//==================================================
+	ImGui::PushID("Character02");
+	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		for (uint32_t i = 0; i < mCharacter2.renderObjects.size(); ++i)
+		{
+			Material& material = mCharacter2.renderObjects[i].material;
+			std::string renderObjectId = "RenderObject " + std::to_string(i);
+			ImGui::PushID(renderObjectId.c_str());
+			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+			{
+				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
+
+			}
+			ImGui::PopID();
+		}
+	}
+	ImGui::PopID();
 	//==================================================
 	ImGui::PushID("Character03");
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))

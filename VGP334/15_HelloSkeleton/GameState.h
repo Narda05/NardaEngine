@@ -2,6 +2,13 @@
 
 #include <NardaEngine/Inc/SpEngine.h>
 
+//enum SkeletonToShow
+//{
+//	Character01,
+//	Character02,
+//	Character03
+//};
+
 class GameState : public NardaEngine::AppState
 {
 public:
@@ -23,5 +30,8 @@ private:
 	NardaEngine::Graphics::RenderGroup mCharacter3; 
 	NardaEngine::Graphics::StandardEffect mStandardEffect;
 
-	bool mDrawSkeleton = false;
+	bool mDrawSkeleton = false;/*
+	SkeletonToShow mSkeletonToShow = SkeletonToShow::Character01;
+	SkeletonToShow mPreviousSkeletonToShow = SkeletonToShow::Character01;*/
+
 };
