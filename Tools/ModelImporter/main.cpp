@@ -272,6 +272,33 @@ int main(int argc, char* argv[])
 		printf("Build Skeleton... \n");
 		model.skeleton = std::make_unique<Skeleton>();
 		BuildSkeleton(scene->mRootNode, nullptr, * model.skeleton.get(), boneIndexMap);
+		
+		for( uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
+		{
+			const auto& aiMesh = scene->mMeshes[meshIndex];
+			if (aiMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
+			{
+				continue;
+			}
+			if (aiMesh->HasBones())
+			{
+				for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
+				{
+					const auto& nodeBone = aiMesh->mBones[b];
+					SetBoneOffsetTransform(nodeBone, *model.skeleton, boneIndexMap);
+				}
+			}
+		}
+		// this offsets the bones transforms by the import scale
+		for (auto& bone : model.skeleton->bones)
+		{
+			bone->offsetTransform._41 *= args.scale;
+			bone->offsetTransform._42 *= args.scale;
+			bone->offsetTransform._43 *= args.scale;
+			bone->toParentTransform._41 *= args.scale;
+			bone->toParentTransform._42 *= args.scale;
+			bone->toParentTransform._43 *= args.scale;
+		}
 
 		printf("Reading Mesh Data...\n");
 		for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
@@ -318,6 +345,31 @@ int main(int argc, char* argv[])
 					mesh.indices.push_back(aiFace.mIndices[i]);
 				}
 			}
+			// get bone weight from mesh bones and apply to vertex data
+			if (aiMesh->HasBones())
+			{
+				printf("Reading Bone Weights...\n");
+				std::vector<int> numWeightsAdded(mesh.vertices.size());
+				for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
+				{
+					const auto& aiBone = aiMesh->mBones[b];
+					uint32_t boneIndex = GetBoneIndex(aiBone, boneIndexMap);
+					for (uint32_t w = 0; w < aiBone->mNumWeights; ++w)
+					{
+						const aiVertexWeight& weight = aiBone->mWeights[w];
+						// get the vertex that the bone is influencing. 
+						Vertex& v = mesh.vertices[weight.mVertexId];
+						// get the number of bones alredy affectiong this vertex
+						int& count = numWeightsAdded[weight.mVertexId];
+						if (count < Vertex::MaxBoneWeights)
+						{
+							v.boneIndices[count] = boneIndex;
+							v.boneWeights[count] = weight.mWeight;
+							++count;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -355,6 +407,9 @@ int main(int argc, char* argv[])
 
 	printf("Saving Materil... \n");
 	ModelIO::SaveMaterial(args.outputFileName, model);
+
+	printf("Saaving Skeleton... \n");
+	ModelIO::SaveSkeleton(args.outputFileName, model);
 
 	printf("Import Completed!\n");
 

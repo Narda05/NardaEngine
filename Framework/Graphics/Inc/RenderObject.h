@@ -6,8 +6,11 @@
 #include "TextureManager.h"
 #include "ModelManager.h"
 
+
 namespace NardaEngine::Graphics
 {
+	struct Skeleton;
+
 	class RenderObject
 	{
 	public:
@@ -31,6 +34,6 @@ namespace NardaEngine::Graphics
 		ModelId modelId; 
 		Transform transform;
 		std::vector<RenderObject> renderObjects; 
-
+		const Skeleton* skeleton;
 	};
 }

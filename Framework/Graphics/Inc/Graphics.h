@@ -39,6 +39,7 @@
 #include "Bone.h"
 #include "Skeleton.h"
 #include "ForceField.h"
+#include "AnimationUtil.h"
 
 
 
