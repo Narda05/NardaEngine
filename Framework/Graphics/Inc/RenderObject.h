@@ -5,7 +5,7 @@
 #include "Material.h"
 #include "TextureManager.h"
 #include "ModelManager.h"
-
+#include "Animator.h"
 
 namespace NardaEngine::Graphics
 {
@@ -33,7 +33,9 @@ namespace NardaEngine::Graphics
 
 		ModelId modelId; 
 		Transform transform;
-		std::vector<RenderObject> renderObjects; 
-		const Skeleton* skeleton;
+		std::vector<RenderObject> renderObjects;
+
+		const Skeleton* skeleton = nullptr;
+		const Animator* animator = nullptr;
 	};
 }

@@ -1,3 +1,11 @@
 -scale 0.01 ../../Assets/Models/Character01/Character01.fbx ../../Assets/Models/Character01/Character01.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character01/StartWalking.fbx ../../Assets/Models/Character01/Animations/StartWalking.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character01/GingaSidewaysToAu.fbx ../../Assets/Models/Character01/Animations/GingaSidewaysToAu.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character01/HurricaneKick.fbx ../../Assets/Models/Character01/Animations/HurricaneKick.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character01/Falling.fbx ../../Assets/Models/Character01/Animations/Falling.model
+
+
+
+
 -scale 0.01 ../../Assets/Models/Character02/Character02.fbx ../../Assets/Models/Character02/Character02.model
 -scale 0.01 ../../Assets/Models/Character03/Character03.fbx ../../Assets/Models/Character03/Character03.model
