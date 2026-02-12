@@ -37,4 +37,9 @@ private:
 	Boxes mBoxes;
 
 	NardaEngine::Graphics::StandardEffect mStandardEffect;
+
+	// cloth info
+	NardaEngine::Graphics::RenderObject mCloth;
+	NardaEngine::Graphics::Mesh mClothMesh;
+	NardaEngine::Physics::SoftBody mClothSoftBody;
 };

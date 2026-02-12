@@ -13,7 +13,7 @@ namespace NardaEngine::Physics
 			// is the gravity used for physics simulations
 			Math::Vector3 gravity = { 0.0f, -9.81f, 0.0f };
 			// if update loops are too slow, this is the maximuum simulations physics will run 
-			uint32_t simulationSteps = 1; 
+			uint32_t simulationSteps = 1;
 			//the fixed rate that the simulations will run to ensure consistent/predictable outcomes
 			float fixedTimeStep = 1.0f / 60.0f;
 		};
@@ -24,7 +24,7 @@ namespace NardaEngine::Physics
 
 		PhysicsWorld() = default;
 		~PhysicsWorld();
-		
+
 		void Initialize(const Settings& settings);
 		void Terminate();
 
@@ -35,8 +35,8 @@ namespace NardaEngine::Physics
 
 		void Register(PhysicsObject* physicsObject);
 		void Unregister(PhysicsObject* physicsObject);
-	private: 
-		Settings mSettings; 
+	private:
+		Settings mSettings;
 
 		//bulet objects
 		btBroadphaseInterface* mInterface = nullptr;
@@ -45,7 +45,15 @@ namespace NardaEngine::Physics
 		btSequentialImpulseConstraintSolver* mSolver = nullptr;
 
 		// this is the main physics world that runs the simulations 
+#ifdef USE_SOFT_BODY
+		friend class SoftBody;
+		btSoftRigidDynamicsWorld* mDynamicsWorld = nullptr;
+		btSoftRigidDynamicsWorld* GetSoftBodyWorld() { return mDynamicsWorld; }
+
+#else
 		btDiscreteDynamicsWorld* mDynamicsWorld = nullptr;
+		btSoftRigidDynamicsWorld* GetSoftBodyWorld() { return nullptr; }
+#endif
 
 		using PhysicsObjects = std::vector<PhysicsObject*>;
 		PhysicsObjects mPhysicsObjects;
