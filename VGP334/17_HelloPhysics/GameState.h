@@ -27,5 +27,14 @@ private:
 	NardaEngine::Physics::CollisionShape mGroundShape;
 	NardaEngine::Physics::RigidBody mGroundRigidBody;
 
+	struct BoxData
+	{
+		NardaEngine::Graphics::RenderObject box;
+		NardaEngine::Physics::CollisionShape shape;
+		NardaEngine::Physics::RigidBody rigidBody;
+	};
+	using Boxes = std::vector<BoxData>;
+	Boxes mBoxes;
+
 	NardaEngine::Graphics::StandardEffect mStandardEffect;
 };

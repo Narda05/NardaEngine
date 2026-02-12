@@ -12,6 +12,7 @@ namespace NardaEngine::Graphics
 		static MeshPC CreateCubePC(float size, const Color& color);
 		static MeshPC CreateCubePC(float size);
 		static MeshPX CreateCubePX(float size);
+		static Mesh CreateCube(float size);
 
 		//Make a pyramid 
 		static MeshPC CreatePyramidPC(float size);
@@ -43,5 +44,7 @@ namespace NardaEngine::Graphics
 		
 		// Screen Quad 
 		static MeshPX CreateScreenQuadPX();
+
+		
 	};
 }

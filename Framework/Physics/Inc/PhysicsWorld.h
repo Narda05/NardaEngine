@@ -1,4 +1,5 @@
 #pragma once
+#include "PhysicsDebugDraw.h"
 
 namespace NardaEngine::Physics
 {
@@ -48,5 +49,9 @@ namespace NardaEngine::Physics
 
 		using PhysicsObjects = std::vector<PhysicsObject*>;
 		PhysicsObjects mPhysicsObjects;
+
+		PhysicsDebugDraw mPhysicsDebugDraw;
+		bool mDebugDraw = false;
+
 	};
 }

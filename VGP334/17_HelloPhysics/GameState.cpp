@@ -4,6 +4,7 @@
 using namespace NardaEngine; 
 using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
+using namespace NardaEngine::Physics;
 
 void GameState::Initialize() 
 {
@@ -37,10 +38,45 @@ void GameState::Initialize()
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
+	Mesh boxShape = MeshBuilder::CreateCube(1.0f);
+	TextureId boxTextureId = tm->LoadTexture("earth.jpg");
 
+	float yOffset = 4.5f;
+	float xOffset = 0.0f;
+	int rowCount = 1;
+	int boxIndex = 0;
+	mBoxes.resize(10);
+	while (boxIndex < mBoxes.size())
+	{
+		xOffset = -((static_cast<float>(rowCount) - 1.0f) * 0.5f);
+		for (int r = 0; r < rowCount; ++r)
+		{
+			BoxData& box = mBoxes[boxIndex];
+			box.box.meshBuffer.Initialize(boxShape);
+			box.box.diffuseMapId = boxTextureId;
+			box.box.transform.position.x = xOffset;
+			box.box.transform.position.y = yOffset;
+			box.box.transform.position.z = 4.0f;
+			box.shape.InitializeBox({ 0.5f, 0.5f, 0.5f });
+			xOffset += 1.0f;
+			++boxIndex;
+		}
+		yOffset -= 1.0f;
+		rowCount += 1;
+	}
+	for (int i = mBoxes.size() -1; i >= 0; --i)
+	{
+		mBoxes[i].rigidBody.Initialize(mBoxes[i].box.transform, mBoxes[i].shape, 4.0f);
+	}
 }
 void GameState::Terminate() 
 {
+	for(BoxData& box : mBoxes)
+	{
+		box.rigidBody.Terminate();
+		box.shape.Terminate();
+		box.box.Terminate();
+	}
 	mStandardEffect.Terminate();
 	mGroundRigidBody.Terminate();
 	mGroundShape.Terminate();
@@ -49,11 +85,18 @@ void GameState::Terminate()
 	mBallShape.Terminate();
 	mBallObject.Terminate();
 
+
 	
 }
 void GameState::Update(float deltaTime) 
 {
 	UpdateCamera(deltaTime);
+	if (InputSystem::Get()->IsMousePressed(MouseButton::LBUTTON))
+	{
+		Math::Vector3 spawnPos = mCamera.GetPosition() + (mCamera.GetDirection() * 0.5f);
+		mBallRigidBody.SetPosition(spawnPos);
+		mBallRigidBody.SetVelosity(mCamera.GetDirection() * 20.0f);
+	}
 
 	
 }
@@ -62,6 +105,10 @@ void GameState::Render()
 	mStandardEffect.Begin();
 		mStandardEffect.Render(mBallObject);
 		mStandardEffect.Render(mGroundObject);
+		for (BoxData& box : mBoxes)
+		{
+			mStandardEffect.Render(box.box);
+		}
 	mStandardEffect.End();
 }
 
@@ -87,7 +134,9 @@ void GameState::DebugUI()
 	}
 
 	mStandardEffect.DebugUI();
+	PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
+	SimpleDraw::Render(mCamera);
 }
 
 void GameState::UpdateCamera(float deltaTime) 
