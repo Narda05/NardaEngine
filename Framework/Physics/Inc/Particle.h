@@ -10,7 +10,7 @@ namespace NardaEngine::Physics
 		float lifeTime = 0.0f;
 		Math::Vector3 position = Math::Vector3::Zero;
 		Math::Vector3 velocity = Math::Vector3::Zero;
-		Graphics::Color color = Graphics::Colors::White;
+		Graphics::Color startColor = Graphics::Colors::White;
 		Graphics::Color endColor = Graphics::Colors::White;
 		Math::Vector3 startScale = Math::Vector3::One;
 		Math::Vector3 endScale = Math::Vector3::One;

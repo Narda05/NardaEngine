@@ -12,9 +12,10 @@ namespace NardaEngine::Physics
 		float delay = 0.0f;
 		float lifeTime = 0.0f;
 		Math::RangeInt particlesPerEmit = { 0, 0 };
-		Math::Range<float>timeBetweenEnit = { 0.0f, 0.0f };
+		Math::Range<float>timeBetweenEmit = { 0.0f, 0.0f };
 		Math::Range<float> startSpeed = { 0.0f, 0.0f };
 		Math::Range<float> spawnSpeed = { 0.0f, 0.0f };
+		Math::Range<float> spawnAngle = { 0.0f, 0.0f };
 		Math::Range<float> particleLifeTime = { 0.0f, 0.0f };
 		Math::Vector3 spawnPosition = Math::Vector3::Zero;
 		Math::Vector3 spawnDirection = Math::Vector3::Zero;
@@ -37,7 +38,7 @@ namespace NardaEngine::Physics
 		void SetPosition(const Math::Vector3& position);
 
 		void SpawnParticles();
-		void Render();
+		void Render(Graphics::ParticleSystemEffect& effect);
 	private: 
 		void InitializeParticles(uint32_t maxParticles);
 		void SpawnSingleParticle();

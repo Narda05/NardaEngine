@@ -45,6 +45,9 @@ namespace NardaEngine::Graphics
 		// Screen Quad 
 		static MeshPX CreateScreenQuadPX();
 
+		// Sprite Quad 
+		static MeshPX CreateSpriteQuadPX(float with, float height);
+
 		
 	};
 }

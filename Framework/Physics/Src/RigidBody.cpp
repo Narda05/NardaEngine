@@ -18,7 +18,7 @@ void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const Collisi
 
 	// NOTE: may need to set to 0 if using a player and not wating it to tip over
 	btVector3 localInertia = btVector3();
-	shape.mCollisionShape->calculateLocalInertia(mass, localInertia);
+	// shape.mCollisionShape->calculateLocalInertia(mass, localInertia);
 	mMotionState = new btDefaultMotionState(ConvertToBtTransform(graphicsTransform));
 	mRigidBody = new btRigidBody(mMass, mMotionState, shape.mCollisionShape, localInertia);
 	if (addToWorld)
