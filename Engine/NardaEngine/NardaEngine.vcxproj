@@ -153,6 +153,9 @@
     <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
       <Project>{52d656a2-a2f4-4c54-a3c7-653427bed1e8}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Audio\Audio.vcxproj">
+      <Project>{5ecbe51f-94cd-4596-adf5-f43a07350a2f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Graphics\Graphics.vcxproj">
       <Project>{1227a47f-5b15-4a11-9936-a397c8e95a03}</Project>
     </ProjectReference>

@@ -16,10 +16,15 @@ namespace NardaEngine::Graphics
 		T key = T();
 		float time = 0.0f;
 	};
+
+	using AnimationCallBack = std::function<void()>;
+
 	template<class T>
 	using Keyframes = std::vector<Keyframe<T>>;
 
 	using PositionKeys = Keyframes<Math::Vector3>;
 	using RotationKeys = Keyframes<Math::Quaternion>;
 	using Scalekeys = Keyframes<Math::Vector3>;
+	using EventKeys = Keyframes<AnimationCallBack>;
+
 }

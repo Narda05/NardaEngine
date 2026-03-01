@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Inc">
+      <UniqueIdentifier>{fc882b1e-6191-44ce-9c8f-b9b3df795319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scr">
+      <UniqueIdentifier>{82e92d42-3319-438a-b984-bdb5f306fb48}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inc\Audio.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Common.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Precompiled.h">
+      <Filter>Scr</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SoundEffectManager.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\AudioSystem.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Precompiled.cpp">
+      <Filter>Scr</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\AudioSystem.cpp">
+      <Filter>Scr</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundEffectManager.cpp">
+      <Filter>Scr</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

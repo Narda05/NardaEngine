@@ -12,6 +12,8 @@ namespace NardaEngine::Graphics
 		void PlayAnimation(int clipIndex, bool looping);
 		void Update(float deltaTime);
 
+		void PlayEvents(float prevTime, float curTime);
+
 		bool IsFinished() const;
 		size_t GetAnimationCount() const;
 		bool GetToParentTransform(const Bone* bone, Math::Matrix4& transform) const;
@@ -20,6 +22,7 @@ namespace NardaEngine::Graphics
 		ModelId mModelId = 0;
 		int mClipIndex = -1;
 		float mAnimationTick = 0.0f;
+		EventKeys mEventKeys;
 		bool mIsLooping = false;
 	};
 }

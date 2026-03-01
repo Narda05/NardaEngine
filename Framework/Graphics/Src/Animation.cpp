@@ -21,6 +21,17 @@ Transform Animation::GetTransfor(float time) const
 	transform.scale = GetScale(time);
 	return transform;
 }
+
+void Animation::PlayEvents(float prevTime, float curTime) 
+{
+	for (uint32_t i = 0; i < mEventKeys.size(); ++i)
+	{
+		if( mEventKeys[i].time > prevTime && mEventKeys[i].time <= curTime)
+		{
+			mEventKeys[i].key();
+		}
+	}
+}
 float Animation::GetDuration() const
 {
 	return mDuration;

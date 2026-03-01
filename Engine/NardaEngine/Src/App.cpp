@@ -7,6 +7,7 @@ using namespace NardaEngine::Core;
 using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
 using namespace NardaEngine::Physics;
+using namespace NardaEngine::Audio;
 
 void App::Run(const AppConfig& config)
 {
@@ -30,7 +31,9 @@ void App::Run(const AppConfig& config)
 
 	PhysicsWorld::Settings settings;
 	PhysicsWorld::StaticInitialize(settings);
-
+	EventManager::StaticInitialize();
+	AudioSystem::StaticInitialize();
+	SoundEffectManager::StaticInitialize(L"../../Assets/Audio");
 
 
 	//last step before running
@@ -59,6 +62,8 @@ void App::Run(const AppConfig& config)
 			
 		}
 
+		AudioSystem::Get()->Update();
+
 		float deltaTime = TimeUtil::GetDeltaTime();
 #if defined(_DEBUG)
 		if (deltaTime < 0.5f) // primarily for handling breakpoints
@@ -82,7 +87,9 @@ void App::Run(const AppConfig& config)
 	LOG("App Quit");
 	mCurrentState->Terminate();
 
-
+	SoundEffectManager::StaticTerminate();
+	AudioSystem::StaticTerminate();
+	EventManager::StaticTerminate();
 	PhysicsWorld::StaticTerminate();
 	ModelManager::StaticTerminate();
 	TextureManager::StaticTerminate();

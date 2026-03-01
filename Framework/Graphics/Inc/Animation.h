@@ -10,6 +10,7 @@ namespace NardaEngine::Graphics
 	public:
 		Transform GetTransfor(float time) const;
 		float GetDuration() const;
+		void PlayEvents(float prevTime, float curTime);
 	private:
 		Math::Vector3 GetPosition(float time) const;
 		Math::Quaternion GetRotation(float time) const;
@@ -21,6 +22,7 @@ namespace NardaEngine::Graphics
 		PositionKeys mPositionKeys;
 		RotationKeys mRotationKeys;
 		Scalekeys mScaleKeys;
+		EventKeys mEventKeys;
 		float mDuration = 0.0f;
 
 	};
