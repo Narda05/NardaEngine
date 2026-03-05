@@ -20,6 +20,6 @@ float TimeUtil::GetDeltaTime()
 	const auto currentTime = std::chrono::high_resolution_clock::now();
 	const auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastCallTime).count();
 	lastCallTime = currentTime;
-	return milliseconds / 100.0f;
+	return milliseconds / 1000.0f;
 }
 

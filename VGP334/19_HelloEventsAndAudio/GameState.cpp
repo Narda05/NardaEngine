@@ -111,6 +111,8 @@ void GameState::Update(float deltaTime)
 }
 void GameState::Render() 
 {
+	// Vector3 camPos = mCameraAnimation.GetTransform(mCameraAnimationTime).position;
+	// mCamera.SetPosition(camPos);
 	SimpleDraw::AddGroundPlane(10.0f, Colors::White);
 	SimpleDraw::Render(mCamera);
 
@@ -126,6 +128,7 @@ void GameState::Render()
 void GameState::DebugUI()
 {
 	ImGui::Begin("Debug", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("Time: %f", mFireworkAnimationTime);
 	mParticleSystem.DebugUI();
 	PhysicsWorld::Get()->DebugUI();
 	ImGui::End();
