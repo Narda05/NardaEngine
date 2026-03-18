@@ -4,8 +4,56 @@
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character01/HurricaneKick.fbx ../../Assets/Models/Character01/Animations/HurricaneKick.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character01/Falling.fbx ../../Assets/Models/Character01/Animations/Falling.model
 
-
-
-
+//Character02
 -scale 0.01 ../../Assets/Models/Character02/Character02.fbx ../../Assets/Models/Character02/Character02.model
+
+//Character03
 -scale 0.01 ../../Assets/Models/Character03/Character03.fbx ../../Assets/Models/Character03/Character03.model
+
+
+//Character04 smallSister
+-scale 0.01 ../../Assets/Models/Character04/Character04.fbx ../../Assets/Models/Character04/Character04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/HipHopDancing04.fbx ../../Assets/Models/Character04/Animation/HipHopDancing04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/FastRun04.fbx ../../Assets/Models/Character04/Animation/FastRun04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/SweepFall04.fbx ../../Assets/Models/Character04/Animation/SweepFall04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/Falling04.fbx ../../Assets/Models/Character04/Animation/Falling04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/Floating04.fbx ../../Assets/Models/Character04/Animation/Floating04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/StandingGreeting04.fbx ../../Assets/Models/Character04/Animation/StandingGreeting04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/WaveHipHopDance04.fbx ../../Assets/Models/Character04/Animation/WaveHipHopDance04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/StandingArguing04.fbx ../../Assets/Models/Character04/Animation/StandingArguing04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/ShoutingArguments04.fbx ../../Assets/Models/Character04/Animation/ShoutingArguments04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/TellingASecret04.fbx ../../Assets/Models/Character04/Animation/TellingASecret04.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/RunningToTurn04.fbx ../../Assets/Models/Character04/Animation/RunningToTurn04.model
+
+
+
+
+
+
+
+//Character05 BigSister
+-scale 0.01 ../../Assets/Models/Character05/Character05.fbx ../../Assets/Models/Character05/Character05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/FastRun05.fbx ../../Assets/Models/Character05/Animation/FastRun05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/ChangeDirection05.fbx ../../Assets/Models/Character05/Animation/ChangeDirection05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/HitOnTheBack05.fbx ../../Assets/Models/Character05/Animation/HitOnTheBack05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/LookBehindRun05.fbx ../../Assets/Models/Character05/Animation/LookBehindRun05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/WaveHipHopDance05.fbx ../../Assets/Models/Character05/Animation/WaveHipHopDance05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/Push05.fbx ../../Assets/Models/Character05/Animation/Push05.model
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/ShoutingArguments05.fbx ../../Assets/Models/Character05/Animation/ShoutingArguments05.fbx
+-animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/RunningToTurn05.fbx ../../Assets/Models/Character05/Animation/RunningToTurn05.fbx
+
+
+
+
+
+//Animation Character06
+-scale 0.01 ../../Assets/Models/Character06/Character06.fbx ../../Assets/Models/Character06/Character06.model
+
+
+//Island
+-scale 0.01 ../../Assets/Models/Island/Flooting_Stage.fbx ../../Assets/Models/Island/Flooting_Stage.model
+
+
+
+
+

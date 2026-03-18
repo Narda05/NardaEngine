@@ -17,18 +17,19 @@ void GameState::Initialize()
 	mDirectionalLight.specular = { 0.9f, 0.9f, 0.9f, 1.0f };
 
 	ModelManager* mm = ModelManager::Get();
-	mCharacter.Initialize("Character01/Character01.model");
-	mCharacter.animator = &mAnimator;
-	mm->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character01/Animations/StartWalking.animset");
-	mm->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character01/Animations/Falling.animset");
-	mm->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character01/Animations/GingaSidewaysToAu.animset");
-	mm->AddAnimation(mCharacter.modelId, L"../../Assets/Models/Character01/Animations/HurricaneKick.animset");
-	mAnimator.Initialize(mCharacter.modelId);
+	mCharacter4.Initialize("Character04/Character04.model");
+	mCharacter4.animator = &mAnimator;
+	mm->AddAnimation(mCharacter4.modelId, L"../../Assets/Models/Character04/Animation/HipHopDancing04.animset");
+	/*mm->AddAnimation(mCharacter4.modelId, L"../../Assets/Models/Character04/Animations/StartWalking.animset");
+	mm->AddAnimation(mCharacter4.modelId, L"../../Assets/Models/Character04/Animations/GingaSidewaysToAu.animset");
+	mm->AddAnimation(mCharacter4.modelId, L"../../Assets/Models/Character04/Animations/HurricaneKick.animset");
+	*/
+	mAnimator.Initialize(mCharacter4.modelId);
 
-	mCharacter2.Initialize("Character02/Character02.model");
+	/*mCharacter2.Initialize("Character02/Character02.model");
 	mCharacter3.Initialize("Character03/Character03.model");
 	mCharacter2.transform.position.x = -2.0f;
-	mCharacter3.transform.position.x = 2.0f;
+	mCharacter3.transform.position.x = 2.0f;*/
 
 	std::filesystem::path effectPath = "../../Assets/Shaders/Standard.fx";
 	mStandardEffect.Initialize(effectPath);
@@ -37,9 +38,9 @@ void GameState::Initialize()
 }
 void GameState::Terminate()
 {
-	mCharacter.Terminate();
-	mCharacter2.Terminate();
-	mCharacter3.Terminate();
+	mCharacter4.Terminate();
+	/*mCharacter2.Terminate();
+	mCharacter3.Terminate();*/
 	mStandardEffect.Terminate();
 	
 }
@@ -56,14 +57,14 @@ void GameState::Render()
 	if (mDrawSkeleton)
 	{
 		AnimationUtil::BoneTransforms boneTransforms;
-		AnimationUtil::ComputeBoneTransforms(mCharacter.modelId, boneTransforms, &mAnimator);
-		AnimationUtil::DrawSkeleton(mCharacter.modelId, boneTransforms);
+		AnimationUtil::ComputeBoneTransforms(mCharacter4.modelId, boneTransforms, &mAnimator);
+		AnimationUtil::DrawSkeleton(mCharacter4.modelId, boneTransforms);
 		
-		AnimationUtil::ComputeBoneTransforms(mCharacter2.modelId, boneTransforms);
+		/*AnimationUtil::ComputeBoneTransforms(mCharacter2.modelId, boneTransforms);
 		AnimationUtil::DrawSkeleton(mCharacter2.modelId, boneTransforms);
 		
 		AnimationUtil::ComputeBoneTransforms(mCharacter3.modelId, boneTransforms);
-		AnimationUtil::DrawSkeleton(mCharacter3.modelId, boneTransforms);
+		AnimationUtil::DrawSkeleton(mCharacter3.modelId, boneTransforms);*/
 		SimpleDraw::AddGroundPlane(20.0f, Colors::White);
 		SimpleDraw::Render(mCamera);
 
@@ -74,9 +75,9 @@ void GameState::Render()
 		SimpleDraw::Render(mCamera);
 
 		mStandardEffect.Begin();
-		mStandardEffect.Render(mCharacter);
-		mStandardEffect.Render(mCharacter2);
-		mStandardEffect.Render(mCharacter3);
+		mStandardEffect.Render(mCharacter4);
+		//mStandardEffect.Render(mCharacter2);
+		//mStandardEffect.Render(mCharacter3);
 		mStandardEffect.End();
 	}
 }
@@ -96,12 +97,12 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Specular#Light", &mDirectionalLight.specular.r);
 	}
 	//==================================================
-	ImGui::PushID("Character01");
+	ImGui::PushID("Character04");
 	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		for (uint32_t i = 0; i < mCharacter.renderObjects.size(); ++i)
+		for (uint32_t i = 0; i < mCharacter4.renderObjects.size(); ++i)
 		{
-			Material& material = mCharacter.renderObjects[i].material;
+			Material& material = mCharacter4.renderObjects[i].material;
 			std::string renderObjectId = "RenderObject " + std::to_string(i);
 			ImGui::PushID(renderObjectId.c_str());
 			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
@@ -118,50 +119,50 @@ void GameState::DebugUI()
 	}
 	ImGui::PopID();
 	//==================================================
-	ImGui::PushID("Character02");
-	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		for (uint32_t i = 0; i < mCharacter2.renderObjects.size(); ++i)
-		{
-			Material& material = mCharacter2.renderObjects[i].material;
-			std::string renderObjectId = "RenderObject " + std::to_string(i);
-			ImGui::PushID(renderObjectId.c_str());
-			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
-			{
-				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
-				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
-				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
-				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
-				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
+	//ImGui::PushID("Character02");
+	//if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	//{
+	//	for (uint32_t i = 0; i < mCharacter2.renderObjects.size(); ++i)
+	//	{
+	//		Material& material = mCharacter2.renderObjects[i].material;
+	//		std::string renderObjectId = "RenderObject " + std::to_string(i);
+	//		ImGui::PushID(renderObjectId.c_str());
+	//		if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+	//		{
+	//			ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+	//			ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+	//			ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+	//			ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+	//			ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
 
-			}
-			ImGui::PopID();
-		}
-	}
-	ImGui::PopID();
-	//==================================================
-	ImGui::PushID("Character03");
-	if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		for (uint32_t i = 0; i < mCharacter3.renderObjects.size(); ++i)
-		{
-			Material& material = mCharacter3.renderObjects[i].material;
-			std::string renderObjectId = "RenderObject " + std::to_string(i);
-			ImGui::PushID(renderObjectId.c_str());
-			if (ImGui::CollapsingHeader(renderObjectId.c_str()))
-			{
-				ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
-				ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
-				ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
-				ImGui::ColorEdit4("Specular#Material", &material.specular.r);
-				ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
+	//		}
+	//		ImGui::PopID();
+	//	}
+	//}
+	//ImGui::PopID();
+	////==================================================
+	//ImGui::PushID("Character03");
+	//if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
+	//{
+	//	for (uint32_t i = 0; i < mCharacter3.renderObjects.size(); ++i)
+	//	{
+	//		Material& material = mCharacter3.renderObjects[i].material;
+	//		std::string renderObjectId = "RenderObject " + std::to_string(i);
+	//		ImGui::PushID(renderObjectId.c_str());
+	//		if (ImGui::CollapsingHeader(renderObjectId.c_str()))
+	//		{
+	//			ImGui::ColorEdit4("Emissive#Material", &material.emissive.r);
+	//			ImGui::ColorEdit4("Ambient#Material", &material.ambient.r);
+	//			ImGui::ColorEdit4("Diffuse#Material", &material.diffuse.r);
+	//			ImGui::ColorEdit4("Specular#Material", &material.specular.r);
+	//			ImGui::DragFloat("Shininess#Material", &material.shininess, 0.01f, 0.1f, 1000.0f);
 
-			}
-			ImGui::PopID();
-		}
-	}
+	//		}
+	//		ImGui::PopID();
+	//	}
+	//}
 	//==================================================
-	ImGui::PopID();
+	/*ImGui::PopID();*/
 
 	ImGui::Checkbox("Draw Skeleton", &mDrawSkeleton);
 	ImGui::DragFloat("Animation Speed", &mAnimationSpeed, 0.1f, 0.0f, 10.0f);

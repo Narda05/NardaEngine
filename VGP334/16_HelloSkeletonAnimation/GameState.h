@@ -25,11 +25,11 @@ private:
 	NardaEngine::Graphics::Camera mCamera;
 	NardaEngine::Graphics::DirectionalLight mDirectionalLight;
 
-	NardaEngine::Graphics::RenderGroup mCharacter; 
+	NardaEngine::Graphics::RenderGroup mCharacter4; 
 	NardaEngine::Graphics::Animator mAnimator;
 
-	NardaEngine::Graphics::RenderGroup mCharacter2; 
-	NardaEngine::Graphics::RenderGroup mCharacter3; 
+	//NardaEngine::Graphics::RenderGroup mCharacter2; 
+	//NardaEngine::Graphics::RenderGroup mCharacter3; 
 
 
 	NardaEngine::Graphics::StandardEffect mStandardEffect;

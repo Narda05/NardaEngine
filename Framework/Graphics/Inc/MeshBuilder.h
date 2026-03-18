@@ -47,6 +47,7 @@ namespace NardaEngine::Graphics
 
 		// Sprite Quad 
 		static MeshPX CreateSpriteQuadPX(float with, float height);
+		static Mesh CreateSpriteQuad(float with, float height);
 
 		
 	};
