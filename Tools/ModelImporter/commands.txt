@@ -26,11 +26,6 @@
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character04/Animation/RunningToTurn04.fbx ../../Assets/Models/Character04/Animation/RunningToTurn04.model
 
 
-
-
-
-
-
 //Character05 BigSister
 -scale 0.01 ../../Assets/Models/Character05/Character05.fbx ../../Assets/Models/Character05/Character05.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/FastRun05.fbx ../../Assets/Models/Character05/Animation/FastRun05.model
@@ -41,9 +36,6 @@
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/Push05.fbx ../../Assets/Models/Character05/Animation/Push05.model
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/ShoutingArguments05.fbx ../../Assets/Models/Character05/Animation/ShoutingArguments05.fbx
 -animOnly 1 -scale 0.01 ../../Assets/Models/Character05/Animation/RunningToTurn05.fbx ../../Assets/Models/Character05/Animation/RunningToTurn05.fbx
-
-
-
 
 
 //Animation Character06

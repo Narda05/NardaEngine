@@ -2,22 +2,25 @@
 
 #include <NardaEngine/Inc/SpEngine.h>
 
-enum class GameEventType
-{
-	PressSpace = 1, 
-	PressEnter
-};
 
-class PressSpaceEvent : public NardaEngine::Core::Event
-{
-public: 
-	PressSpaceEvent() {}
-	SET_EVENT_TYPE_ID(GameEventType::PressSpace)
-};
-
-class PressEnterEvent : public NardaEngine::Core::Event
+class GameEvents
 {
 public:
-	PressEnterEvent() {}
-	SET_EVENT_TYPE_ID(GameEventType::PressEnter)
+	using Callback = std::function<void()>;
+
+	static void SubscribeThunder(const Callback& callback)
+	{
+		mThunderCallbacks.push_back(callback);
+	}
+
+	static void BroadcastThunder()
+	{
+		for (auto& cb : mThunderCallbacks)
+		{
+			cb();
+		}
+	}
+
+private:
+	inline static std::vector<Callback> mThunderCallbacks;
 };
