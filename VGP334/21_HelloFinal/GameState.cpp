@@ -95,11 +95,19 @@ void GameState::Initialize()
 	std::string fileName = "Aniamtion2d/scene";
 	std::string extension = ".jpg";
 
-	for (std::size_t i = 1; i <= 118; ++i)
+	//for (std::size_t i = 1; i <= 118; ++i)
+	//{
+	//	std::string number = std::to_string(i);
+	//	number = std::string(5 - number.size(), '0') + number;
+	//	mImageIds.push_back(TextureManager::Get()->LoadTexture(fileName + number + extension));
+	//}
+	int indexValue = 1;
+	for (std::size_t i = 0; i < 182; ++i)
 	{
-		std::string number = std::to_string(i);
+		std::string number = std::to_string(indexValue);
 		number = std::string(5 - number.size(), '0') + number;
 		mImageIds.push_back(TextureManager::Get()->LoadTexture(fileName + number + extension));
+		indexValue += 5;
 	}
 
 	if (!mImageIds.empty())
@@ -107,7 +115,7 @@ void GameState::Initialize()
 		mCurrentImage = 0;
 		mImageQuad.textureId = mImageIds[mCurrentImage];
 		mImageTime = 0.0f;
-		mImageDuration = 0.050f;
+		mImageDuration = 0.1f;
 	}
 
 	//fade 

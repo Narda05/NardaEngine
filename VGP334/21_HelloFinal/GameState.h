@@ -155,7 +155,7 @@ private:
 	std::vector<NardaEngine::Graphics::TextureId> mImageIds;
 
 	float mImageTime = 0.0f;
-	float mImageDuration = 0.050f;
+	float mImageDuration = 0.1f;
 	size_t mCurrentImage = 0;
 
 	bool mTogetherMontageStarted = false;
