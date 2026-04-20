@@ -7,6 +7,18 @@
     <Filter Include="Inc">
       <UniqueIdentifier>{36006cac-8ad0-4b2c-8393-84dd40c9013d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Components">
+      <UniqueIdentifier>{6e327323-3e2e-4e57-b9f4-d96f8b3039b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Components">
+      <UniqueIdentifier>{fa1d6174-a85f-497f-a657-919221019086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Services">
+      <UniqueIdentifier>{d6f4dd6e-aa50-4fe4-bb75-a288fb8b56fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Services">
+      <UniqueIdentifier>{684158b0-3027-494c-8c29-652664c90c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inc\Common.h">
@@ -24,6 +36,33 @@
     <ClInclude Include="Inc\AppState.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\GameObject.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GameWorld.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\GameObjectHandle.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Component.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Typelds.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\TransformComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\CameraComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\FPSCameraComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Service.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -34,6 +73,21 @@
     </ClCompile>
     <ClCompile Include="Src\SpEngine.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObject.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameWorld.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TransformComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FPSCameraComponent.cpp">
+      <Filter>Src\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
