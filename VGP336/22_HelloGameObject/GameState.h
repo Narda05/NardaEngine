@@ -14,4 +14,8 @@ public:
 private:
 	NardaEngine::GameWorld mGameWorld;
 	NardaEngine::CameraComponent* mCameraComponent = nullptr;
+	NardaEngine::TransformComponent* mPlayer1Transform = nullptr;
+	NardaEngine::TransformComponent* mPlayer2Transform = nullptr;
+	NardaEngine::TransformComponent* mPlayer3Transform = nullptr;
+	NardaEngine::TransformComponent* mPlayer4Transform = nullptr;
 };
