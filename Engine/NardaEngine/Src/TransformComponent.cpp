@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "TransformComponent.h"
+#include "SaveUtil.h"
 
 using namespace NardaEngine; 
 using namespace NardaEngine::Graphics;
@@ -12,4 +13,11 @@ void TransformComponent::DebugUI()
 
 	SimpleDraw::AddTransform(GetMatrix4());
 
+}
+
+void TransformComponent::Deserialize(const rapidjson::Value& value)
+{
+	SaveUtil::ReadVector3("Position", position, value);
+	SaveUtil::ReadQuaternion("Rotation", rotation, value);
+	SaveUtil::ReadVector3("Scale", scale, value);
 }

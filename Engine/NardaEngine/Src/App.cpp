@@ -37,7 +37,7 @@ void App::Run(const AppConfig& config)
 
 
 	//last step before running
-	ASSERT(mCurrentState != nullptr, "App: need an app state to run");
+	ASSERT(mCurrentState != nullptr, "App: need an app state to run.");
 	mCurrentState->Initialize();
 
 	//process updates
@@ -70,7 +70,9 @@ void App::Run(const AppConfig& config)
 #endif
 		{
 			mCurrentState->Update(deltaTime);
+#ifndef USE_PHYSICS_SERVICE
 			PhysicsWorld::Get()->Update(deltaTime);
+#endif
 		}
 
 		GraphicsSystem* gs = GraphicsSystem::Get();

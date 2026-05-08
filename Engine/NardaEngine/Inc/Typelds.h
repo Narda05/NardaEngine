@@ -8,13 +8,19 @@ namespace NardaEngine
 		Transform,                 // Transform Component for location data
 		Camera,                    // Camera Component for view and projection data
 		FPSCamera,                 // move the camera component with FPS controls
-		Count                  // las value, can be used to chain custom components
+		Mesh,                      // add a mesh shape on the game object to render
+		Model,                     // add a model to the game object to render
+		Animator,                  // add an animation controller to the game object
+		RigidBody,                 // add a physics object to the game object
+		Count                      // las value, can be used to chain custom components
 	};
 
 	enum class ServiceId
 	{
 		Invalid,                     // default value, not valid id
 		Camera,                      // manages the camera in the world
+		Render,                      // renders renderobject in the world
+		Physics,                     // registers and monitors physics objects
 		Count                        // last value, can be used to chain custom services
 	};
 }

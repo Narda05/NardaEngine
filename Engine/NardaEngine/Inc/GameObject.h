@@ -5,6 +5,8 @@
 
 namespace NardaEngine
 {
+	class GameWorld;
+
 	class GameObject final
 	{
 	public:
@@ -19,6 +21,9 @@ namespace NardaEngine
 		const std::string& GetName() const;
 		uint32_t GetId() const;
 		const GameObjectHandle& GetHandle() const;
+
+		GameWorld& GetWorld();
+		const GameWorld& GetWorld() const;
 
 		template<class ComponentType>
 		ComponentType* AddComponent()
@@ -75,6 +80,7 @@ namespace NardaEngine
 		bool mInitialized = false;
 		uint32_t mId = 0;
 		GameObjectHandle mHandle;
+		GameWorld* mWorld = nullptr;
 
 		using Components = std::vector<std::unique_ptr<Component>>;
 		Components mComponents;

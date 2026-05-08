@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "GameWorld.h"
+#include "GameObjectFactory.h"
 
 using namespace NardaEngine;
 
@@ -78,7 +79,7 @@ void GameWorld::DebugUI() {
 		service->DebugUI();
 	}
 }
-GameObject* GameWorld::CreateGameObject(std::string name)
+GameObject* GameWorld::CreateGameObject(std::string name, const std::filesystem::path& templatePath)
 {
 	ASSERT(mInitialized, "GameWorld: is not initialized");
 	if (mFreeSlots.empty())
@@ -95,6 +96,11 @@ GameObject* GameWorld::CreateGameObject(std::string name)
 	slot.gameObject->SetName(name);
 	slot.gameObject->mHandle.mIndex = freeSlot;
 	slot.gameObject->mHandle.mGeneration = slot.generation;
+	slot.gameObject->mWorld = this;
+	if (!templatePath.empty())
+	{
+		GameObjectFactory::Make(templatePath, *slot.gameObject, *this);
+	}
 	return slot.gameObject.get();
 
 }
