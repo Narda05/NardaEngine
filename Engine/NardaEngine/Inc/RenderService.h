@@ -18,6 +18,8 @@ namespace NardaEngine
 		void Update(float deltaTime) override;
 		void Render() override;
 		void DebugUI() override;
+		void Deserialize(const rapidjson::Value& value) override;
+
 
 		void Register(const RenderObjectComponent* renderObjectComponent);
 		void Unregister(const RenderObjectComponent* renderObjectComponent);

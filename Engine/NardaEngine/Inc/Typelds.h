@@ -9,9 +9,11 @@ namespace NardaEngine
 		Camera,                    // Camera Component for view and projection data
 		FPSCamera,                 // move the camera component with FPS controls
 		Mesh,                      // add a mesh shape on the game object to render
-		Model,                     // add a model to the game object to render
-		Animator,                  // add an animation controller to the game object
-		RigidBody,                 // add a physics object to the game object
+		Model,                     // adds a model to the game object to render
+		Animator,                  // adds an animation controller to the game object
+		RigidBody,                 // adds a physics object to the game object
+		SoundEffect,               // adds a sound effect to an object
+		SoundBank,                 // adds a group of sounds to an object
 		Count                      // las value, can be used to chain custom components
 	};
 

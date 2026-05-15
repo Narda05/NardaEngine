@@ -115,6 +115,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{A1F3C6E6-0D87-499F-BA11-E3683BE515B5}"
 	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\Objects\custom_obj.json = Assets\Templates\Objects\custom_obj.json
 		Assets\Templates\Objects\fps_camera.json = Assets\Templates\Objects\fps_camera.json
 		Assets\Templates\Objects\ground.json = Assets\Templates\Objects\ground.json
 		Assets\Templates\Objects\mesh_obj.json = Assets\Templates\Objects\mesh_obj.json
@@ -123,6 +124,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{A1F3
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "23_HelloGameObjectFactory", "VGP336\23_HelloGameObjectFactory\23_HelloGameObjectFactory.vcxproj", "{0F34E5C5-A9CF-4A51-AD3A-59E3BFFFF1DA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "24_HelloGameWorld", "VGP336\24_HelloGameWorld\24_HelloGameWorld.vcxproj", "{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{43CE30A7-B214-4F20-8426-575DFD044036}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\Levels\level.json = Assets\Templates\Levels\level.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -436,6 +444,14 @@ Global
 		{0F34E5C5-A9CF-4A51-AD3A-59E3BFFFF1DA}.Release|x64.Build.0 = Release|x64
 		{0F34E5C5-A9CF-4A51-AD3A-59E3BFFFF1DA}.Release|x86.ActiveCfg = Release|Win32
 		{0F34E5C5-A9CF-4A51-AD3A-59E3BFFFF1DA}.Release|x86.Build.0 = Release|Win32
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Debug|x64.ActiveCfg = Debug|x64
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Debug|x64.Build.0 = Debug|x64
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Debug|x86.ActiveCfg = Debug|Win32
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Debug|x86.Build.0 = Debug|Win32
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Release|x64.ActiveCfg = Release|x64
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Release|x64.Build.0 = Release|x64
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Release|x86.ActiveCfg = Release|Win32
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -482,6 +498,8 @@ Global
 		{D1508E9C-592E-4A10-8177-585D2278717C} = {0A3D5703-E6AE-4D00-B16D-F8EFC533FDEC}
 		{A1F3C6E6-0D87-499F-BA11-E3683BE515B5} = {D1508E9C-592E-4A10-8177-585D2278717C}
 		{0F34E5C5-A9CF-4A51-AD3A-59E3BFFFF1DA} = {929D4F7D-D108-4867-9D42-B7ED199D5014}
+		{6FF03F9A-00A9-40DA-AC58-8574C3F4DC96} = {929D4F7D-D108-4867-9D42-B7ED199D5014}
+		{43CE30A7-B214-4F20-8426-575DFD044036} = {D1508E9C-592E-4A10-8177-585D2278717C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {115F636A-C108-4519-9AD7-D64501E6B0DE}

@@ -1,10 +1,25 @@
 {
-  "Components":
-  {
+  "Components": {
     "TransformComponent": {
       "Position": [ 0.0, 0.0, 0.0 ],
       "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-      "Scale":  [1.0, 1.0, 1.0]
+      "Scale": [ 1.0, 1.0, 1.0 ]
+    },
+    "SoundBankComponent": {
+      "SoundEffects": {
+        "Explotion": {
+          "FileName": "explosion.wav",
+          "Looping": false
+        },
+        "Shot": {
+          "FileName": "megamanx_shot.wav",
+          "Looping": false
+        },
+        "Spark": {
+          "FileName": "megamanx_spark_mandrill.wav",
+          "Looping": false
+        }
+      }
     }
   }
 }
