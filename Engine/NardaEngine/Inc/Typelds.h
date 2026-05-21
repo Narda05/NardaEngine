@@ -14,6 +14,9 @@ namespace NardaEngine
 		RigidBody,                 // adds a physics object to the game object
 		SoundEffect,               // adds a sound effect to an object
 		SoundBank,                 // adds a group of sounds to an object
+		UIText,                    // adds a UI text Component
+		UIBSprite,                 // adds a UI BSprite Component
+		UButton,                   // adds a UI Button Component
 		Count                      // las value, can be used to chain custom components
 	};
 
@@ -23,6 +26,7 @@ namespace NardaEngine
 		Camera,                      // manages the camera in the world
 		Render,                      // renders renderobject in the world
 		Physics,                     // registers and monitors physics objects
+		UIRender,                     // render UI Components
 		Count                        // last value, can be used to chain custom services
 	};
 }
