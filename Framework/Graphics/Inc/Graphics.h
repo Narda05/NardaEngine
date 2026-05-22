@@ -44,6 +44,8 @@
 #include "Animator.h"
 #include "ParticleSystemEffect.h"
 #include "UIFont.h"
+#include "UISprite.h"
+#include "UISpriteRenderer.h"
 
 
 
