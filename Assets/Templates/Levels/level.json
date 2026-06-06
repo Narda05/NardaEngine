@@ -52,16 +52,6 @@
         }
       }
     },
-    "ModelObj": {
-      "Template": "../../Assets/Templates/Objects/model_obj.json",
-      "Components": {
-        "TransformComponent": {
-          "Position": [ 2.0, 5.0, 0.0 ],
-          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
-        }
-      }
-    },
     "Ground": {
       "Template": "../../Assets/Templates/Objects/ground.json",
       "Components": {
