@@ -60,6 +60,7 @@ void App::Run(const AppConfig& config)
 			mCurrentState->Terminate();
 			mCurrentState = std::exchange(mNextState, nullptr);
 			mCurrentState->Initialize();
+			mNextState = nullptr;
 			
 		}
 
@@ -116,5 +117,9 @@ void App::ChangeState(const std::string& stateName)
 	if (iter != mAppStates.end())
 	{
 		mNextState = iter->second.get();
+	}
+	else
+	{
+		LOG("App: State % s not found", stateName.c_str());
 	}
 }

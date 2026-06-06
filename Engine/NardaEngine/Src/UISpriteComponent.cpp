@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "GameWorld.h"
 #include "UIRenderService.h"
-
+#include "UIButtonComponent.h"
 #include "SaveUtil.h"
 
 
@@ -34,6 +34,27 @@ void UISpriteComponent::Terminate()
 
 void UISpriteComponent::Render()
 {
+    Math::Vector2 worldPosition = GetPosition(false);
+    GameObject* parent = GetOwner().GetParent();
+    while (parent != nullptr)
+    {
+        UISpriteComponent* spriteComponent = parent->GetComponent<UISpriteComponent>();
+        if (spriteComponent != nullptr)
+        {
+            worldPosition += spriteComponent->GetPosition();
+        }
+        else
+        {
+            UIButtonComponent* buttonComponent = parent->GetComponent<UIButtonComponent>();
+            if (buttonComponent != nullptr)
+            {
+                worldPosition += buttonComponent->GetPosition();
+            }
+        }
+        parent = parent->GetParent();
+    }
+
+    mUISprite.SetPostion({ worldPosition.x, worldPosition.y });
     UISpriteRenderer::Get()->Render(mUISprite);
 }
 

@@ -51,6 +51,15 @@ SoundId SoundEffectManager::Load(const std::filesystem::path& fileName)
 		soundEventPtr = std::make_unique<Entry>();
 		soundEventPtr->effect = std::make_unique<SoundEffect>(as->mAudioEngine, fullPath.wstring().c_str());
 		soundEventPtr->instance = soundEventPtr->effect->CreateInstance();
+
+		////
+		//soundEventPtr->instance->SetVolume;
+
+	// in game state add a ¨3d audio manager (just in game state)
+	// make it threaded
+	// add several audioids and positions for each
+		// monitor where camera is and adjust sound volume
+		// SoundEffecManager::Get()->SetVolume(id, volume)
 	}
 	return soundId;
 }
