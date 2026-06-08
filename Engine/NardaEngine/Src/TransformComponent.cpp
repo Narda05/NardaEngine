@@ -23,6 +23,12 @@ void TransformComponent::Deserialize(const rapidjson::Value& value)
 	SaveUtil::ReadVector3("Scale", scale, value);
 }
 
+void TransformComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue)
+{
+    rapidjson::Value componentValue(rapidjson::kObjectType);
+    //compare with original, if different, save urrent value
+    value.AddMember("TransformComponent", componentValue, doc.GetAllocator());
+}
 Transform TransformComponent::GetWorldTransform() const 
 {
     Transform worldTransform = *this;

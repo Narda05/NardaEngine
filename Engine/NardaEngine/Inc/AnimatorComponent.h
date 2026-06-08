@@ -13,6 +13,7 @@ namespace NardaEngine
 		void Initialize() override;
 		void Update(float deltatime) override;
 		void DebugUI() override;
+		void Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue) override;
 
 		bool Play(int index, bool looping = false);
 

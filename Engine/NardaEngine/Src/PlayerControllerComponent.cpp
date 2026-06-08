@@ -17,8 +17,7 @@ void PlayerControllerComponent::Initialize()
 
 	//Dot show the mouse in the screen
 	//InputSystem::Get()->ShowSystemCursor(false);
-	
-
+	//InputSystem::Get()->SetMouselipToWindow(true);
 }
 void PlayerControllerComponent::Terminate()
 {
@@ -59,9 +58,13 @@ void PlayerControllerComponent::Update(float deltaTime)
 			mRigidBodyComponent->SetVelocity(vel);
 		}
 	}
-	
-	float turnInput = input->GetMouseMoveX() * turnSpeed;
-	
+
+	float turnInput = 0.0f;
+	if (input->IsMouseDown(MouseButton::RBUTTON))
+	{
+		turnInput = input->GetMouseMoveX() * turnSpeed;
+	}
+		
 	Math::Matrix4 matrix = mTransformComponent->GetMatrix4();
 	Math::Vector3 forward = Math::GetLook(matrix);
 	Math::Vector3 right = Math::GetRight(matrix);
@@ -103,4 +106,10 @@ void PlayerControllerComponent::Deserialize(const rapidjson::Value& value)
 	SaveUtil::ReadFloat("ShiftSpeed", mShiftSpeed, value);
 	SaveUtil::ReadFloat("TurnSpeed", mTurnSpeed, value);
 	SaveUtil::ReadFloat("JumpSpeed", mJumpSpeed, value);
+}
+void PlayerControllerComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue)
+{
+	rapidjson::Value componentValue(rapidjson::kObjectType);
+	// compare with original, if different, save current value
+	value.AddMember("PlayerControllerComponent", componentValue, doc.GetAllocator());
 }

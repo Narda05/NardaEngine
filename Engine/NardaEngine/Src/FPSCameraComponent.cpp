@@ -65,3 +65,9 @@ void FPSCameraComponent::Deserialize(const rapidjson::Value& value)
 	SaveUtil::ReadFloat("ShiftSpeed", mShiftSpeed, value);
 	SaveUtil::ReadFloat("TurnSpeed", mTurnSpeed, value);
 }
+void  FPSCameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue)
+{
+	rapidjson::Value componentValue(rapidjson::kObjectType);
+	//ompare with original, if different, save urrent value
+	value.AddMember(" FPSCameraComponent", componentValue, doc.GetAllocator());
+}

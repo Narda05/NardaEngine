@@ -12,7 +12,7 @@ namespace NardaEngine
 		SET_TYPE_ID(ServiceId::Camera);
 
 		void DebugUI() override;
-
+		void Serialize(rapidjson::Document& doc, rapidjson::Value& value) override;
 		const Graphics::Camera& GetMain() const;
 		void SetMainCamera(uint32_t index);
 

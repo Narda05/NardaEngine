@@ -53,6 +53,12 @@ void CameraComponent::Deserialize(const rapidjson::Value& value)
 		mCamera.SetDirection(readValue);
 	}
 }
+void CameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value, const rapidjson::Value& originalValue)
+{
+	rapidjson::Value componentValue(rapidjson::kObjectType);
+	//ompare with original, if different, save urrent value
+	value.AddMember("CameraComponent", componentValue, doc.GetAllocator());
+}
 
 Graphics::Camera& CameraComponent::GetCamera()
 {
