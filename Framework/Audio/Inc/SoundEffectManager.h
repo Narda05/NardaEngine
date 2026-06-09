@@ -27,6 +27,10 @@ namespace NardaEngine::Audio
 		void Play(SoundId id, bool loop = false);
 		void Stop(SoundId id);
 
+		// Adjustable volume for a loaded sound
+		// Called from the audio thread to apply distance-base attenuation
+		void SetVolume(SoundId id, float volume);
+
 	private: 
 		struct Entry
 		{

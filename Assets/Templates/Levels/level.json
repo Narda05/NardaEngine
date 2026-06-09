@@ -29,7 +29,7 @@
       "Template": "../../Assets/Templates/Objects/transform_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 2.0, 1.0, 0.0 ]
+          "Position": [ 15.0, 0.0, 15.0 ]
         }
       }
     },
@@ -37,7 +37,7 @@
       "Template": "../../Assets/Templates/Objects/mesh_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -5.0, 0.0, 0.0 ],
+          "Position": [ -15.0, 0.0, 10.0 ],
           "Rotation": [ 0.0, 1.0, 0.0, 1.0 ],
           "Scale": [ 1.0, 1.0, 1.0 ]
         }
@@ -47,7 +47,7 @@
       "Template": "../../Assets/Templates/Objects/model_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 5.0, 5.0, 0.0 ],
+          "Position": [ 10.0, 0.0, -15.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
           "Scale": [ 1.0, 1.0, 1.0 ]
         }
@@ -68,6 +68,51 @@
     },
     "Player": {
       "Template": "../../Assets/Templates/Objects/player_obj.json"
+    },
+    "ExplosionSource": {
+      "Template": "../../Assets/Templates/Objects/simple_mesh.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 10.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 2.0, 2.0, 2.0 ]
+        },
+        "MeshComponent": {
+          "Textures": {
+            "DiffuseMap": "../../Assets/Textures/Images/red.jpg"
+          }
+        }
+      }
+    },
+    "SortmEagleSource": {
+      "Template": "../../Assets/Templates/Objects/simple_mesh.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ -15.0, 0.0, 5.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 2.0, 2.0, 2.0 ]
+        },
+        "MeshComponent": {
+          "Textures": {
+            "DiffuseMap": "../../Assets/Textures/Images/blue.jpg"
+          }
+        }
+      }
+    },
+    "ThunderSource": {
+      "Template": "../../Assets/Templates/Objects/simple_mesh.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 0.0, 0.0, -20.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 2.0, 2.0, 2.0 ]
+        },
+        "MeshComponent": {
+          "Textures": {
+            "DiffuseMap": "../../Assets/Textures/Images/purple.jpg"
+          }
+        }
+      }
     }
   }
 }

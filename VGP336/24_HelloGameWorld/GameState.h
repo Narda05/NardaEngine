@@ -1,6 +1,7 @@
 #pragma once
 
 #include <NardaEngine/Inc/SpEngine.h>
+#include "SpatialAudioManager.h"
 
 class GameState : public NardaEngine::AppState
 {
@@ -14,5 +15,6 @@ public:
 private:
 	std::filesystem::path mLevelFile;
 	NardaEngine::GameWorld mGameWorld;
+	NardaEngine::Audio::SpatialAudioManager mSpatialAudio;
 
 };

@@ -95,3 +95,15 @@ void SoundEffectManager::Stop(SoundId id)
 		iter->second->instance->Stop();
 	}
 }
+
+void SoundEffectManager::SetVolume(SoundId id, float volume)
+{
+	// Search for the sound in the inventory by its ID
+	auto iter = mInventory.find(id);
+	if (iter != mInventory.end())
+	{
+		//Directly set volume on the directX SoundEffectInstance
+		// volume ranges from 0.0 (silence) to 1.0 (maximum)
+		iter->second->instance->SetVolume(volume);
+	}
+}
