@@ -2,6 +2,7 @@
 #include "math.h"
 #include "CustomDebugDrawComponent.h"
 #include "CustomDebugDrawService.h"
+#include "JumpParticleComponent.h"
 
 using namespace NardaEngine; 
 using namespace NardaEngine::Graphics;
@@ -27,6 +28,10 @@ Component* MakeCustomComponent(const std::string& componentName, GameObject& gam
 	{
 		return gameObject.AddComponent<CustomDebugDrawComponent>();
 	}
+	if (componentName == "JumpParticleComponent")
+	{
+		return gameObject.AddComponent<JumpParticleComponent>();
+	}
 	return nullptr;
 }
 Component* GetCustomComponent(const std::string& componentName, GameObject& gameObject)
@@ -34,6 +39,10 @@ Component* GetCustomComponent(const std::string& componentName, GameObject& game
 	if (componentName == "CustomDebugDrawComponent")
 	{
 		return gameObject.GetComponent<CustomDebugDrawComponent>();
+	}
+	if (componentName == "JumpParticleComponent")
+	{
+		return gameObject.GetComponent<JumpParticleComponent>();
 	}
 	return nullptr;
 }
@@ -48,12 +57,22 @@ void GameState::Initialize()
 	GameObjectFactory::SetCustomMake(MakeCustomComponent);
 	GameObjectFactory::SetCustomGet(GetCustomComponent);
 
+	//Skydome 
+	mSimpleTextureEffect.Initialize();
+	NardaEngine::Graphics::MeshPX skySphere = NardaEngine::Graphics::MeshBuilder::CreateSkySpherePX(30, 30, 500.0f);
+	mSkySphere.mesh.Initialize(skySphere);
+	mSkySphere.textureId = NardaEngine::Graphics::TextureManager::Get()->LoadTexture("minerals.png");
+
 
 	mGameWorld.LoadLevel(mLevelFile);
 
 }
 void GameState::Terminate() 
 {
+	mSkySphere.mesh.Terminate();
+	NardaEngine::Graphics::TextureManager::Get()->RealeaseTexture(mSkySphere.textureId);
+	mSimpleTextureEffect.Terminate();
+
 	mGameWorld.Terminate();
 }
 void GameState::Update(float deltaTime) 
@@ -62,7 +81,20 @@ void GameState::Update(float deltaTime)
 }
 void GameState::Render() 
 {
+	// Render skydome first
+	auto* cameraService = mGameWorld.GetService<NardaEngine::CameraService>();
+	mSimpleTextureEffect.SetCamera(cameraService->GetMain());
+	mSimpleTextureEffect.Begin();
+	mSimpleTextureEffect.Render(mSkySphere);
+	mSimpleTextureEffect.End();
+
 	mGameWorld.Render();
+
+	if (JumpParticleComponent::sInstance)
+	{
+		JumpParticleComponent::sInstance->Render();
+	}
+
 }
 
 void GameState::DebugUI()

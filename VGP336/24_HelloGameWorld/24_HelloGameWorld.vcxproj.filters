@@ -27,6 +27,9 @@
     <ClCompile Include="CustomDebugDrawService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JumpParticleComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -39,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CustomDebugDrawService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpParticleComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

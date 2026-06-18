@@ -4,7 +4,8 @@
 
 enum class CustomComponentId
 {
-	CustomDebugDraw = static_cast<int>(NardaEngine::ComponentId::Count)
+	CustomDebugDraw = static_cast<int>(NardaEngine::ComponentId::Count),
+	JumpParticle
 
 };
 

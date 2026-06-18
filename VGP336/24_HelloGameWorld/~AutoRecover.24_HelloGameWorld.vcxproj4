@@ -137,6 +137,8 @@
     <ClInclude Include="CustomDebugDrawService.h" />
     <ClInclude Include="CustomTypeIds.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="JumpEvent.h" />
+    <ClInclude Include="JumpGameEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\NardaEngine\NardaEngine.vcxproj">

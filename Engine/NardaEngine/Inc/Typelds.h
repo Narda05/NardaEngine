@@ -31,6 +31,13 @@ namespace NardaEngine
 		UIRender,                     // render UI Components
 		Count                        // last value, can be used to chain custom services
 	};
+
+	enum class EventId
+	{
+		Invalid,  // default value, not valid id
+		Jump,
+		Count     // last value, can be used to chain custom events
+	};
 }
 
 #define SET_TYPE_ID(id)\

@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "SaveUtil.h"
 
+
 using namespace NardaEngine;
 using namespace NardaEngine::Input;
 
@@ -48,16 +49,67 @@ void PlayerControllerComponent::Update(float deltaTime)
 	{
 		moveInput.x = -moveSpeed;
 	}
-	if (input->IsKeyDown(KeyCode::SPACE))
+	
+	// Detecting ground 
+	if (mRigidBodyComponent != nullptr)
 	{
-		//do jump 
-		if (mRigidBodyComponent != nullptr)
+		Math::Vector3 currentVel = mRigidBodyComponent->GetVelocity();
+		bool isGrounded = (Math::Abs(currentVel.y) < 0.05f);
+
+		
+		// Near 0 means we are on the ground
+		if (isGrounded)
 		{
-			Math::Vector3 vel = mRigidBodyComponent->GetVelocity();
-			vel.y = mJumpSpeed;
-			mRigidBodyComponent->SetVelocity(vel);
+			mGroundedTimer += deltaTime;
+			if (mGroundedTimer >= mGroundedDelay && mJumpCount > 0)
+			{
+				mJumpCount = 0;
+			}
+		}
+		else
+		{
+			mGroundedTimer = 0.0f;
+		}
+		mWasGrounded = isGrounded;
+
+		// Change for the Jump Bug 
+		if (input->IsKeyPressed(KeyCode::SPACE))
+		{
+
+			if (mJumpCount < mMaxJumps)
+			{
+				Math::Vector3 vel = mRigidBodyComponent->GetVelocity();
+
+				//FirstJump Full speed and SecondJump lower speed
+				if (mJumpCount == 0)
+				{
+					vel.y = mJumpSpeed;
+				}
+				else
+				{
+					vel.y = mDoubleJumpSpeed;
+				}
+
+				mRigidBodyComponent->SetVelocity(vel);
+				mJumpCount++;
+
+				// Notify particle system
+				Core::JumpEvent jumpEvent(mJumpCount);
+				Core::EventManager::Broadcast(jumpEvent);
+			}
 		}
 	}
+
+	//if (input->IsKeyDown(KeyCode::SPACE))
+	//{
+	//	//do jump 
+	//	if (mRigidBodyComponent != nullptr)
+	//	{
+	//		Math::Vector3 vel = mRigidBodyComponent->GetVelocity();
+	//		vel.y = mJumpSpeed;
+	//		mRigidBodyComponent->SetVelocity(vel);
+	//	}
+	//}
 
 	float turnInput = 0.0f;
 	if (input->IsMouseDown(MouseButton::RBUTTON))
@@ -113,3 +165,6 @@ void PlayerControllerComponent::Serialize(rapidjson::Document& doc, rapidjson::V
 	// compare with original, if different, save current value
 	value.AddMember("PlayerControllerComponent", componentValue, doc.GetAllocator());
 }
+
+
+

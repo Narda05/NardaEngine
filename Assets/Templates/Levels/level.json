@@ -1,9 +1,7 @@
 {
   "Capacity": 100,
   "Services": {
-    "CameraService": {
-
-    },
+    "CameraService": {},
     "RenderService": {
       "Direction": [ 1.0, -1.0, 1.0 ],
       "Ambient": [ 0.3, 0.3, 0.3, 1.0 ],
@@ -14,60 +12,304 @@
     "PhysicsService": {
       "Gravity": [ 0.0, -9.81, 0.0 ]
     },
-    "CustomDebugDrawService": {
-
-    },
-    "UIRenderService": {
-
-    }
+    "CustomDebugDrawService": {},
+    "UIRenderService": {}
   },
   "GameObjects": {
-    "Transform": {
-      "Template": "../../Assets/Templates/Objects/transform_obj.json"
-    },
-    "TransformerNotPrime": {
-      "Template": "../../Assets/Templates/Objects/transform_obj.json",
+    "Player": {
+      "Template": "../../Assets/Templates/Objects/player_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ 2.0, 1.0, 0.0 ]
+          "Position": [ 0.0, 3.0, 0.0 ]
         }
       }
     },
-    "SphereObj": {
-      "Template": "../../Assets/Templates/Objects/mesh_obj.json",
+
+    "StartPlatform": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
       "Components": {
         "TransformComponent": {
-          "Position": [ -5.0, 0.0, 0.0 ],
-          "Rotation": [ 0.0, 1.0, 0.0, 1.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
-        }
-      }
-    },
-    "ModelObj": {
-      "Template": "../../Assets/Templates/Objects/model_obj.json",
-      "Components": {
-        "TransformComponent": {
-          "Position": [ 5.0, 5.0, 0.0 ],
+          "Position": [ 0.0, 0.0, 0.0 ],
           "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
-          "Scale": [ 1.0, 1.0, 1.0 ]
-        }
-      }
-    },
-    "Ground": {
-      "Template": "../../Assets/Templates/Objects/ground.json",
-      "Components": {
+          "Scale": [ 8.0, 1.0, 6.0 ]
+        },
         "MeshComponent": {
-          "Textures": {
-            "DiffuseMap": "../../Assets/Textures/misc/basketball.jpg"
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/green.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 4.0, 0.5, 3.0 ]
           }
         }
       }
     },
-    "HUD": {
-      "Template": "../../Assets/Templates/UI/hud_screen.json"
+
+    "Row1_T1": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 12.0, 0.0, 3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/cyan.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
     },
-    "Player": {
-      "Template": "../../Assets/Templates/Objects/player_obj.json"
+
+    "Row1_T2_FAKE": {
+      "Template": "../../Assets/Templates/Objects/platform_fake_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 18.0, 0.0, 3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/cyan.jpg" }
+        }
+      }
+    },
+
+    "Row1_T3": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 24.0, 0.0, 3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/cyan.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Row1_T4_FAKE": {
+      "Template": "../../Assets/Templates/Objects/platform_fake_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 30.0, 0.0, 3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/cyan.jpg" }
+        }
+      }
+    },
+
+    "Row1_T5": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 36.0, 0.0, 3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/cyan.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Row2_T6": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 12.0, 0.0, -3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/purple.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Row2_T7_FAKE": {
+      "Template": "../../Assets/Templates/Objects/platform_fake_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 18.0, 0.0, -3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/purple.jpg" }
+        }
+      }
+    },
+
+    "Row2_T8": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 24.0, 0.0, -3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/purple.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Row2_T9": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 30.0, 0.0, -3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/purple.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.0, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Row2_T10_FAKE": {
+      "Template": "../../Assets/Templates/Objects/platform_fake_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 36.0, 0.0, -3.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 4.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/purple.jpg" }
+        }
+      }
+    },
+
+    "MidPlatform": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 46.0, 0.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 8.0, 1.0, 6.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/green.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 4.0, 0.5, 3.0 ]
+          }
+        }
+      }
+    },
+
+    "Park1": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 57.0, 3.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 5.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/blue.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.5, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "Park2": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 66.0, 6.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 5.0, 1.0, 4.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/yellow.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 2.5, 0.5, 2.0 ]
+          }
+        }
+      }
+    },
+
+    "EndPlatform": {
+      "Template": "../../Assets/Templates/Objects/platform_obj.json",
+      "Components": {
+        "TransformComponent": {
+          "Position": [ 76.0, 6.0, 0.0 ],
+          "Rotation": [ 0.0, 0.0, 0.0, 1.0 ],
+          "Scale": [ 8.0, 1.0, 6.0 ]
+        },
+        "MeshComponent": {
+          "Textures": { "DiffuseMap": "../../Assets/Textures/Images/green.jpg" }
+        },
+        "RigidBodyComponent": {
+          "Mass": 0.0,
+          "ColliderData": {
+            "Shape": "Box",
+            "HalfExtents": [ 4.0, 0.5, 3.0 ]
+          }
+        }
+      }
     }
   }
 }
