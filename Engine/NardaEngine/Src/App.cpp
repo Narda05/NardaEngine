@@ -8,6 +8,7 @@ using namespace NardaEngine::Graphics;
 using namespace NardaEngine::Input;
 using namespace NardaEngine::Physics;
 using namespace NardaEngine::Audio;
+using namespace NardaEngine::Network;
 
 void App::Run(const AppConfig& config)
 {
@@ -24,6 +25,7 @@ void App::Run(const AppConfig& config)
 	auto handler = myWindow.GetWindowHandle();
 	GraphicsSystem::StaticInitialize(handler, false);
 	InputSystem::StaticInitialize(handler);
+	NetworkManager::StaticInitialize(handler);
 	DebugUI::StaticInitialize(handler, false, true);
 	SimpleDraw::StaticInitialize(config.maxVertexCount);
 	TextureManager::StaticInitialize(L"../../Assets/Textures");
@@ -101,6 +103,7 @@ void App::Run(const AppConfig& config)
 	TextureManager::StaticTerminate();
 	SimpleDraw::StaticTerminate();
 	DebugUI::StaticTerminate();
+	NetworkManager::StaticTerminate();
 	InputSystem::StaticTerminate();
 	GraphicsSystem::StaticTerminate();
 	myWindow.Terminate();

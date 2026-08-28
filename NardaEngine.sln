@@ -124,6 +124,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Objects", "Objects", "{A1F3
 		Assets\Templates\Objects\platform_fake_obj.json = Assets\Templates\Objects\platform_fake_obj.json
 		Assets\Templates\Objects\platform_obj.json = Assets\Templates\Objects\platform_obj.json
 		Assets\Templates\Objects\player_obj.json = Assets\Templates\Objects\player_obj.json
+		Assets\Templates\Objects\player_obj_mp.json = Assets\Templates\Objects\player_obj_mp.json
+		Assets\Templates\Objects\player_obj_mp_remote.json = Assets\Templates\Objects\player_obj_mp_remote.json
 		Assets\Templates\Objects\simple_mesh.json = Assets\Templates\Objects\simple_mesh.json
 		Assets\Templates\Objects\transform_obj.json = Assets\Templates\Objects\transform_obj.json
 	EndProjectSection
@@ -135,6 +137,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Levels", "Levels", "{43CE30A7-B214-4F20-8426-575DFD044036}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\Levels\level.json = Assets\Templates\Levels\level.json
+		Assets\Templates\Levels\level_mp.json = Assets\Templates\Levels\level_mp.json
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\FW1FontWrapper\FW1FontWrapper.vcxproj", "{0D034612-14E2-44E7-993A-72344A2CA7BD}"
@@ -145,6 +148,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{1D0E69C4-F9BE-
 		Assets\Templates\UI\ui_button.json = Assets\Templates\UI\ui_button.json
 		Assets\Templates\UI\ui_sprite.json = Assets\Templates\UI\ui_sprite.json
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Framework\Network\Network.vcxproj", "{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP331", "VGP331", "{28572FED-9FCD-4FF7-A266-B1290FE5978F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "25_HelloNetwork", "VGP331\25_HelloNetwork\25_HelloNetwork.vcxproj", "{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -474,6 +483,22 @@ Global
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.Release|x64.Build.0 = Release|x64
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.Release|x86.ActiveCfg = Release|Win32
 		{0D034612-14E2-44E7-993A-72344A2CA7BD}.Release|x86.Build.0 = Release|Win32
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Debug|x64.ActiveCfg = Debug|x64
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Debug|x64.Build.0 = Debug|x64
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Debug|x86.ActiveCfg = Debug|Win32
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Debug|x86.Build.0 = Debug|Win32
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Release|x64.ActiveCfg = Release|x64
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Release|x64.Build.0 = Release|x64
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Release|x86.ActiveCfg = Release|Win32
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB}.Release|x86.Build.0 = Release|Win32
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Debug|x64.ActiveCfg = Debug|x64
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Debug|x64.Build.0 = Debug|x64
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Debug|x86.ActiveCfg = Debug|Win32
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Debug|x86.Build.0 = Debug|Win32
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Release|x64.ActiveCfg = Release|x64
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Release|x64.Build.0 = Release|x64
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Release|x86.ActiveCfg = Release|Win32
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -524,6 +549,8 @@ Global
 		{43CE30A7-B214-4F20-8426-575DFD044036} = {D1508E9C-592E-4A10-8177-585D2278717C}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {87BCA308-399E-4CD1-80CD-DA08591720D2}
 		{1D0E69C4-F9BE-4245-8452-D4DC5B848F20} = {D1508E9C-592E-4A10-8177-585D2278717C}
+		{52D97F82-3BAB-4587-BD9B-1D020E0EE1FB} = {861CF375-25A5-4A29-8FAD-2C79FB11BB80}
+		{77DB3F1E-1517-4A00-B96B-CC00A5BD8DD1} = {28572FED-9FCD-4FF7-A266-B1290FE5978F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {115F636A-C108-4519-9AD7-D64501E6B0DE}

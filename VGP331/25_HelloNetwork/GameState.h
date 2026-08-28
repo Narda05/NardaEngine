@@ -14,12 +14,4 @@ public:
 private:
 	std::filesystem::path mLevelFile;
 	NardaEngine::GameWorld mGameWorld;
-	JumpParticleComponent* mJumpParticleComponent = nullptr;
-
-	NardaEngine::Core::EventListenerId mJumpListenerId  = 0;
-
-	//Skydome
-	NardaEngine::Graphics::SimpleTextureEffect mSimpleTextureEffect;
-	NardaEngine::Graphics::SimpleTextureEffect::RenderData mSkySphere;
-
 };

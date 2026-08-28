@@ -28,7 +28,8 @@ namespace NardaEngine
 		Camera,                      // manages the camera in the world
 		Render,                      // renders renderobject in the world
 		Physics,                     // registers and monitors physics objects
-		UIRender,                     // render UI Components
+		UIRender,                    // render UI Components
+		Network,                     // manages network capabilities
 		Count                        // last value, can be used to chain custom services
 	};
 

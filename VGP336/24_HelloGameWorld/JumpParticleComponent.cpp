@@ -8,6 +8,8 @@ using namespace NardaEngine::Math;
 
 JumpParticleComponent* JumpParticleComponent::sInstance = nullptr;
 
+
+//Initialize() — Particle setup + listener registration
 void JumpParticleComponent::Initialize()
 {
     sInstance = this;
@@ -61,6 +63,10 @@ void JumpParticleComponent::Initialize()
     );
 }
 
+
+
+// OnJump() + Render() + Terminate()
+
 void JumpParticleComponent::Terminate()
 {
     sInstance = nullptr;
@@ -83,7 +89,6 @@ void JumpParticleComponent::Render()
     mDoubleJumpParticles.Render(mParticleEffect);
     mParticleEffect.End();
 }
-
 void JumpParticleComponent::OnJump(const NardaEngine::Core::Event& e) 
 {
     const auto& jumpEvent = static_cast<const Core::JumpEvent&>(e);
