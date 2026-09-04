@@ -10,48 +10,39 @@ NetworkElement::NetworkElement(unsigned short port)
 
 
 }
-
 NetworkElement::~NetworkElement()
 {
     StopNetwork();
 }
-
 bool NetworkElement::IsInitialized() const
 {
     return mInitialized;
 }
-
 SOCKET NetworkElement::GetSocket() const
 {
     return mMsgConnection;
 }
-
 unsigned short NetworkElement::GetPort() const
 {
     return mPort;
 }
-
 const char* NetworkElement::GetData() const
 {
     return mDataBuffer.data();
 }
-
 int NetworkElement::GetDataLength() const
 {
     return mDataLength;
 }
-
 int NetworkElement::GetLastError() const
 {
     return mWSAErr;
 }
-
 void NetworkElement::ResetMsg()
 {
     mDataBuffer.fill('\0');
     mDataLength = 0;
 }
-
 bool NetworkElement::StartNetwork()
 {
     if (mNetworkStarted)
@@ -69,7 +60,6 @@ bool NetworkElement::StartNetwork()
     mNetworkStarted = true;
     return true;
 }
-
 void NetworkElement::StopNetwork()
 {
     if (mNetworkStarted)
@@ -78,14 +68,12 @@ void NetworkElement::StopNetwork()
         mNetworkStarted = false;
     }
 }
-
 bool NetworkElement::ConfigureSocketForMessages(HWND handle)
 {
     if (mMsgConnection == INVALID_SOCKET)
     {
         return false;
     }
-
     if (handle != nullptr)
     {
         if (WSAAsyncSelect(mMsgConnection, handle, WM_SOCKET, FD_READ | FD_CLOSE) == SOCKET_ERROR)
@@ -96,7 +84,6 @@ bool NetworkElement::ConfigureSocketForMessages(HWND handle)
 
         return true;
     }
-
     return false;
 }
 

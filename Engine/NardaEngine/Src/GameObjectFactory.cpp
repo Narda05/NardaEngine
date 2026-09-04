@@ -18,6 +18,7 @@
 #include "UIButtonComponent.h"
 #include "PlayerControllerComponent.h"
 #include "TPSCameraComponent.h"
+#include "NetworkControllerComponent.h"
 
 using namespace NardaEngine;
 
@@ -84,6 +85,10 @@ namespace
 		else if (componentName == "TPSCameraComponent")
 		{
 			newComponent = gameObject.AddComponent<TPSCameraComponent>();
+		}
+		else if (componentName == "NetworkControllerComponent")
+		{
+			newComponent = gameObject.AddComponent<NetworkControllerComponent>();
 		}
 		else
 		{
@@ -152,6 +157,10 @@ namespace
 		else if (componentName == "TPSCameraComponent")
 		{
 			component = gameObject.GetComponent<TPSCameraComponent>();
+		}
+		else if (componentName == "NetworkControllerComponent")
+		{
+			component = gameObject.GetComponent<NetworkControllerComponent>();
 		}
 		else
 		{

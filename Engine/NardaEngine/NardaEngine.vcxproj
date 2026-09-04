@@ -147,6 +147,7 @@
     <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="Inc\GameObjectHandle.h" />
     <ClInclude Include="Inc\GameWorld.h" />
+    <ClInclude Include="Inc\NetworkControllerComponent.h" />
     <ClInclude Include="Inc\NetworkService.h" />
     <ClInclude Include="Inc\MeshComponent.h" />
     <ClInclude Include="Inc\ModelComponent.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="Src\GameWorld.cpp" />
     <ClCompile Include="Src\MeshComponent.cpp" />
     <ClCompile Include="Src\ModelComponent.cpp" />
+    <ClCompile Include="Src\NetworkControllerComponent.cpp" />
     <ClCompile Include="Src\NetworkService.cpp" />
     <ClCompile Include="Src\PhysicsService.cpp" />
     <ClCompile Include="Src\PlayerControllerComponent.cpp" />

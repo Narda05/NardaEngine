@@ -20,13 +20,11 @@ void Client::Initialize(HWND handle, const std::string& serverAddress)
     {
         return;
     }
-
     if (serverAddress.empty())
     {
         mWSAErr = WSAEINVAL;
         return;
     }
-
     if (!StartNetwork())
     {
         return;
@@ -42,7 +40,7 @@ void Client::Initialize(HWND handle, const std::string& serverAddress)
 
     sockaddr_in localAddress{};
     localAddress.sin_family = AF_INET;
-    localAddress.sin_port = htons(mPort); // can make this 0 for any available
+    localAddress.sin_port = htons(0); // can make this 0 for any available
     localAddress.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(mMsgConnection, reinterpret_cast<const sockaddr*>(&localAddress), sizeof(localAddress)) == SOCKET_ERROR)
@@ -58,7 +56,6 @@ void Client::Initialize(HWND handle, const std::string& serverAddress)
         Terminate();
         return;
     }
-
     if (!ConfigureSocketForMessages(handle))
     {
         ASSERT(false, "Client: failed to configure socket for messages");
@@ -79,7 +76,6 @@ void Client::Terminate()
         closesocket(mMsgConnection);
         mMsgConnection = INVALID_SOCKET;
     }
-
     mInitialized = false;
     StopNetwork();
 }
@@ -121,7 +117,6 @@ void Client::SendMsg(const char* msg, int length)
     {
         return;
     }
-
     if (msg == nullptr || length <= 0 || length > RECEIVE_BUFFER_SIZE)
     {
         mWSAErr = WSAEMSGSIZE;
@@ -151,25 +146,15 @@ bool Client::ResolveServerAddress(const std::string& serverAddress)
     addrinfo* addressList = nullptr;
     const std::string portStr = std::to_string(mPort);
 
-    mWSAErr = getaddrinfo(
-        serverAddress.c_str(),
-        portStr.c_str(),
-        &hints,
-        &addressList);
-
+    mWSAErr = getaddrinfo( serverAddress.c_str(), portStr.c_str(), &hints, &addressList);
     if (mWSAErr != 0)
     {
         return false;
     }
-
     bool foundAddress = false;
-
-    if (addressList != nullptr &&
-        addressList->ai_addrlen >= sizeof(sockaddr_in))
+    if (addressList != nullptr && addressList->ai_addrlen >= sizeof(sockaddr_in))
     {
-        mRemoteServerAddr =
-            *reinterpret_cast<const sockaddr_in*>(addressList->ai_addr);
-
+        mRemoteServerAddr = *reinterpret_cast<const sockaddr_in*>(addressList->ai_addr);
         foundAddress = true;
     }
 

@@ -22,7 +22,6 @@ void Server::Initialize(HWND handle, const std::string& serverAddress)
     {
         return;
     }
-
     if (!StartNetwork())
     {
         return;
@@ -53,16 +52,9 @@ void Server::Initialize(HWND handle, const std::string& serverAddress)
     mServerAddr.sin_port = htons(mPort);
     mServerAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    if (bind(mMsgConnection,
-        reinterpret_cast<const sockaddr*>(&mServerAddr),
-        sizeof(mServerAddr)) == SOCKET_ERROR)
+    if (bind(mMsgConnection, reinterpret_cast<const sockaddr*>(&mServerAddr), sizeof(mServerAddr)) == SOCKET_ERROR)
     {
         mWSAErr = WSAGetLastError();
-        //// WSAWOULDBLOCK is normal for a non-bloking socket
-        // if (mWSAErr == WSAEWOULDBLOCK)
-        //{
-        //  return;
-        //}
         Terminate();
         return;
     }
@@ -92,8 +84,6 @@ void Server::Terminate()
     mInitialized = false;
     StopNetwork();
 }
-
-
 void Server::ReceiveMsg()
 {
     if (!mInitialized || mMsgConnection == INVALID_SOCKET)
@@ -110,7 +100,6 @@ void Server::ReceiveMsg()
         0,
         reinterpret_cast<sockaddr*>(&senderAddress),
         &senderAddressLength);
-
     if (dataReceived == SOCKET_ERROR)
     {
         mWSAErr = WSAGetLastError();

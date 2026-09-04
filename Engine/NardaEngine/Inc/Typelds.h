@@ -14,6 +14,7 @@ namespace NardaEngine
 		Animator,                  // adds an animation controller to the game object
 		RigidBody,                 // adds a physics object to the game object
 		PlayerController,          // input used to move a character/mesh/model
+		NetworkController,         // input used to move a character/mesh/model local as well as remote update
 		SoundEffect,               // adds a sound effect to an object
 		SoundBank,                 // adds a group of sounds to an object
 		UIText,                    // adds a UI text Component

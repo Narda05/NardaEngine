@@ -4,4 +4,6 @@
 
 #include "Server.h"
 #include "Client.h"
+#include "NetworkEvents.h"
+#include "NetworkController.h"
 #include "NetworkManager.h"
